@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- fix: create new directory for fonts    -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Alata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<div id="root">
+    <div class="bg">
+        <div class="fullscreen-video-wrap">
+            <div class="fullscreen-video">
+                <video autoplay loop playsinline muted data-test="video-video" class="video">
+                    <source src="{% static 'img/light.mp4' %}"
+                            type="video/mp4" data-test="video-source">
+                </video>
+            </div>
+        </div>
+        <header>
+            <nav class="navbar px-5 navbar-expand-md navbar-dark">
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="row collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav col-md-3">
+                        <a href="#" class="nav-item nav-link">WOMEN</a>
+                        <a href="#" class="nav-item nav-link">MEN</a>
+                    </div>
+                    <div class="logo col-md-6">
+                        <a href="/" class="logo-text ">Python Project</a>
+                    </div>
+                    <div class="navbar-nav col-md-3 account pr-0">
+                        <a href="#" class="account-title nav-item nav-link ">ACCOUNT</a>
+                        <div class="menu" data-testid="myaccount-dropdown" id="myaccount-dropdown">
+                            <div class="menu-wrapper">
+                                <div class="for-animation">
+                                    <div class="first-line">
+                                        <div class="hello">
+                                            <span class="text">Привет Averia</span>
+                                            <span class="exit">
+                                                <a class="" href="" data-testid="signout-link" tabindex="0">Выйти</a>
+                                            </span>
+                                        </div>
+                                        <button type="button" class="close" aria-label="Close">
+                                            <span class="close-span" aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <ul class="list">
+                                        <li>
+                                            <a href="/login/" class="account-li" tabindex="0"
+                                               data-testid="myaccount-link">Личный кабинет</a></li>
+                                        <li>
+                                            <a href="" class="account-li" tabindex="0"
+                                               data-testid="myorders-link">Мои заказы</a></li>
+                                        <li>
+                                            <a href=""
+                                               class="account-li" tabindex="0"
+                                               data-testid="returnsinformation-link">Информация о возвратах</a></li>
+                                        <li>
+                                            <a href="" class="account-li" tabindex="0"
+                                               data-testid="contactpreferences-link">Предпочтительные способы связи</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="nav-item nav-link tote-title">TOTE - 255</a>
+                        <a href="#" class="cart cart-title">
+                            <svg width="1.5em" height="0.9em" viewBox="0 0 35 29" class="css-j8tnu9 ebf4h9c7">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-1306.000000, -560.000000)">
+                                        <g transform="translate(1306.000000, 560.000000)">
+                                            <g>
+                                                <path d="M29.1828794,6.05440415 L29.1828794,3.10880829 L29.1828794,3.10880829 L26.2645914,0 L11.7354086,0 L8.80933852,3.10880829 L8.80933852,3.10880829 L8.80933852,6.05440415 L0,6.05440415 L0,30 L38,30 L38,6.05440415 L29.1828794,6.05440415 Z M11.7354086,3.10880829 L26.2645914,3.10880829 L26.2645914,6.05440415 L11.7354086,6.05440415 L11.7354086,3.10880829 Z"
+                                                      fill="#FF0000" fill-rule="nonzero"></path>
+                                                <path d="M28.982311,7.5 L36.1,7.5 L36.1,24.375 L28.982311,24.375 L28.982311,7.5 Z M1.9,24.375 L9.01768905,24.375 L9.01768905,7.5 L1.9,7.5 L1.9,24.375 Z M11.8784965,24.375 L26.1215035,24.375 L26.1215035,7.5 L11.8784965,7.5 L11.8784965,24.375 Z"
+                                                      fill="#1561AC" fill-rule="nonzero"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="main">
+            <div class="block">{% block body %}{% endblock %}</div>
+
+        </main>
+        <footer class="footer">
+            <div class="img-container">
+                <img class="logo-img" src="{% static 'img/logo.jpg' %}" alt="">
+            </div>
+            <div class="container">
+                <div class="subscribe">
+                    <div class="subscribe-info">
+                        <h3>Subscribe to newsletter</h3>
+                        <p class="privacy">Sign-up for exclusive deals. You may unsubscribe at any time. To find out
+                            more please visit our Privacy Policy.</p>
+                        <form action="/subscribe/" method="post">{% csrf_token %}
+                            <div class="email">
+                                <label for="email">EMAIL ADDRESS*</label><br>
+                                <input type="email" id="email" name="email" class="form-control">
+                            </div>
+                            <p class="areyou">Are you?</p>
+                            <div class="gender">
+                                <div class="some-gender">
+                                    <input type="radio" id="women" name="gender">
+                                    <label for="women">Women</label>
+                                </div>
+                                <div class="some-gender">
+                                    <input type="radio" id="men" name="gender">
+                                    <label for="men">Men</label>
+
+                                </div>
+                                <div class="some-gender">
+                                    <input type="radio" id="all" name="gender">
+                                    <label for="all">All</label>
+                                </div>
+                            </div>
+                            <div class="form-sub">
+                                <button type="submit" class="btn-sub">SUBSCRIBE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="about">
+                    <nav class="nav">
+                        <div class="nav-info">
+                            <section class="help">
+                                <ul class="help-list">
+                                    <li class="help-item"><a href="">FAQs</a></li>
+                                    <li class="help-item"><a href="">Customer Service</a></li>
+                                    <li class="help-item"><a href="">Terms and Conditions</a></li>
+                                    <li class="help-item"><a href="">Privacy Policy</a></li>
+                                    <li class="help-item"><a href="">Cookie Preferences</a></li>
+                                    <li class="help-item"><a href="">Contact Us</a></li>
+                                </ul>
+                            </section>
+                            <section class="social-networks">
+                                <h3>Follow us in social networks</h3>
+                                <button type="button"
+                                        class="btn btn-social-icon btn-facebook btn-rounded"><i
+                                        class="fa fa-facebook"></i></button>
+                                <button type="button"
+                                        class="btn btn-social-icon btn-youtube btn-rounded"><i
+                                        class="fa fa-youtube"></i></button>
+                                <button type="button"
+                                        class="btn btn-social-icon btn-twitter btn-rounded"><i
+                                        class="fa fa-twitter"></i></button>
+                                <button type="button"
+                                        class="btn btn-social-icon btn-linkedin btn-rounded"><i
+                                        class="fa fa-linkedin"></i></button>
+                                <button type="button"
+                                        class="btn btn-social-icon btn-instagram btn-rounded"><i
+                                        class="fa fa-instagram"></i></button>
+                            </section>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script>
+    let menuElem = document.getElementById('myaccount-dropdown');
+    let titleElem = document.querySelector('.account-title');
+
+     titleElem.onclick = function() {
+      menuElem.classList.toggle('open');
+    };
+</script>
+</body>
+</html>

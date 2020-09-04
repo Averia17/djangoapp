@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login Page
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+<div class="login">
+    <div class="main-content">
+        <div class="login-wrapper mx-auto">
+            <h1 class="text-center mb-4">Login</h1>
+            <div class="socialaccount_ballot">
+                <div class="text-center mb-3">
+                    <ul class="list-unstyled">
+                        <li><a title="GitHub" class="socialaccount_provider github btn btn-secondary btn-lg w-100"
+                               href="/account/github/login/?process=login">Connect With <i
+                                class="fa fa-fw fa-github" aria-hidden="true"></i><strong>GitHub</strong></a></li>
+                    </ul>
+                </div>
+            </div>
+            <form class="mb-4 mx-auto w-100 border rounded p-3" method="POST"> {% csrf_token %}
+
+                <div id="div_id_login" class="form-group">
+                    <label for="id_login" class=" requiredField">Email<span class="asteriskField">*</span></label>
+                    <div class="">
+                        <input type="text" name="username" autofocus="autofocus"
+                               class="textinput textInput form-control" required="" id="id_login">
+                    </div>
+                </div>
+                <div id="div_id_password" class="form-group">
+                    <label for="id_password" class=" requiredField">Password<span
+                            class="asteriskField">*</span></label>
+                    <div class="">
+                        <input type="password" name="password" class="textinput textInput form-control" required=""
+                               id="id_password">
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-md-5 float-left small mt-n2 ml-5 text-right"><a href="/signup">Create Your
+                        Account </a></p>
+                    <p class="col-md-4 ml-3 float-md-left small mt-n2 text-right"><a
+                            href="/account/password/reset/">Forgot Password?</a></p>
+                </div>
+
+                <p class="text-muted small">By signing in, you agree to our <a href="/terms/">Terms of Service</a>
+                    and <a href="/privacy-policy/">Privacy Policy</a>, which we may update from time to time. We’ll
+                    occasionally send you account-related emails.</p>
+                {% for message in messages %}
+					<p id="messages">{{message}}</p>
+				{% endfor %}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg text-wrap px-5 mt-2 w-100"
+                            name="jsSubmitButton">Login
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

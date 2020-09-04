@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Main Page
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+<div class="page-header">
+    <h1 class="header-text">{{ item.name }}</h1>
+</div>
+<div class="product-content">
+    <div class="img-wrapper">
+        <div class="other-images-wrapper">
+            <div class="other-images">
+                <!-- Убрать класс если нужно -->
+                <img class="small-img" onclick="replaceImg(this)" src="{% static 'img/example.jpg'%}" alt="">
+                <img class="small-img" onclick="replaceImg(this)" src="{% static 'img/example1.jpg'%}" alt="">
+                <img class="small-img" onclick="replaceImg(this)" src="{% static 'img/example2.jpg'%}" alt="">
+                <img class="small-img" onclick="replaceImg(this)" src="{% static 'img/example3.jpg'%}" alt="">
+                <img class="small-img" onclick="replaceImg(this)" src="{% static 'img/example4.jpg'%}" alt="">
+
+            </div>
+        </div>
+        <div class="main-img">
+            <img id="ProductImg" src="{% static 'img/example.jpg'%}" alt="">
+        </div>
+
+    </div>
+    <div class="text-content">
+        <div class="product-header">
+            <h1>{{item.name}}</h1>
+        </div>
+        <p class="product-price">{{item.price}}$</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aperiam aut consequuntur dicta dignissimos ea
+            et, fugiat iure labore mollitia nemo nulla perferendis quis tempora ullam unde veritatis vitae
+            voluptatibus?</p>
+        <div class="color">
+            <p>Color: <span>White</span></p>
+        </div>
+        <fieldset class="selection__size" data-qa-size="">
+            <legend class="c-pwa-legend is-required">Size</legend>
+            <div class="c-pwa-sku-selection__size-inner">
+                <div class="c-pwa-radio-boxes c-pwa-radio-boxes--default">
+                    <ul class="c-pwa-radio-boxes__list c-pwa-radio-boxes__list--default">
+                        <li class="size-box">
+
+                            <input required="required"
+                                  type="radio"
+
+                                   name="selectedSize" id="size-2283" value="2830"
+                                   class="radio-input ">
+                            <label for="size-2283"
+                                   class="radio-label">
+                                28/30
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors-pdp-bdg-bow-fit-cropped-jean"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-2832" value="2832"
+                                                    class="radio-input"><label
+                                for="size-2832"
+                                class="radio-label">
+                            28/32
+                        </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors-pdp-bdg-bow-fit-cropped-jean"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-2930" value="2930"
+                                                    class="radio-input">
+                            <label
+                                    for="size-2930"
+                                    class="radio-label">
+                                29/30
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-2932" value="2932"
+                                                    class="radio-input "><label
+                                for="size-2932"
+                                class="radio-label">
+                            29/32
+                        </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3030" value="3030"
+                                                    class="radio-input">
+                            <label
+                                    for="size-3030"
+                                    class="radio-label">
+                                30/30
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3032" value="3032"
+                                                    class="radio-input">
+                            <label
+                                    for="size-3032"
+                                    class="radio-label">
+                                30/32
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3132" value="3132"
+                                                    class="radio-input">
+                            <label
+                                    for="size-3132"
+                                    class="radio-label">
+                                31/32
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3230" value="3230"
+                                                    class="radio-input">
+                            <label
+                                    for="size-3230"
+                                    class="radio-label">
+                                32/30
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3232" value="3232"
+                                                    class="radio-input">
+                            <label
+                                    for="size-3232"
+                                    class="radio-label">
+                                32/32
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3234" value="3234"
+                                                    class="radio-input "><label
+                                for="size-3234"
+                                class="radio-label">
+                            32/34
+                        </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3332" value="3332"
+                                                    class="radio-input"><label
+                                for="size-3332"
+                                class="radio-label">
+                            33/32
+                        </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3430" value="3430"
+                                                    class="radio-input "><label
+                                for="size-3430"
+                                class="radio-label ">
+                            34/30
+                        </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3432" value="3432"
+                                                    class="radio-input">
+                            <label
+                                    for="size-3432"
+                                    class="radio-label">
+                                34/32
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3434" value="3434"
+                                                    class="radio-input">
+                            <label
+                                    for="size-3434"
+                                    class="radio-label">
+                                34/34
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3632" value="3632"
+                                                    class="radio-input">
+                            <label
+                                    for="size-3632"
+                                    class="radio-label">
+                                36/32
+                            </label></li>
+                        <li class="size-box"><input required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3634" value="3634"
+                                                    class="radio-input ">
+                            <label
+                                    for="size-3634"
+                                    class="radio-label">
+                                36/34
+                            </label></li>
+                        <li class="size-box"><input disabled="disabled" required="required"
+                                                    aria-describedby="size-errors0"
+                                                    type="radio" name="selectedSize"
+                                                    id="size-3832" value="3832"
+                                                    class="radio-input li-is-disabled"><label
+                                for="size-3832"
+                                class="radio-label is-disabled">
+                            38/32
+                        </label></li>
+                    </ul>
+                </div>
+                <p class="size-guide">
+                    <a href="/" class=""> Size Guide</a>
+                </p>
+            </div>
+
+        </fieldset>
+    </div>
+</div>
+<script>
+    function replaceImg(id) {
+         document.getElementById("ProductImg").src = id.src;
+    }
+</script>
+
+<script>
+
+</script>
+{% endblock %}

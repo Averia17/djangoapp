@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sign Up Page
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+<div class="login">
+    <div class="main-content">
+        <div class="login-wrapper mx-auto">
+            <h1 class="text-center mb-4">Sign Up</h1>
+
+            <form class="mb-4 mx-auto w-100 border rounded p-3" method="POST">
+                {% csrf_token %}
+                <div id="div_id_email" class="form-group">
+                    <label class=" requiredField">Username<span class="asteriskField">*</span></label>
+                    <div class="">
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div id="div_id_login" class="form-group">
+                    <label class=" requiredField">Email<span class="asteriskField">*</span></label>
+                    <div class="">
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div id="div_id_password" class="form-group">
+                    <label  class=" requiredField">Password<span
+                            class="asteriskField">*</span></label>
+                    <div class="">
+                        {{ form.password1 }}
+                    </div>
+                </div>
+                 <div id="div_id_repeat_password" class="form-group">
+                        <label  class=" requiredField">Repeat Password<span
+                                class="asteriskField">*</span></label>
+                        <div class="">
+                           {{ form.password2 }}
+                        </div>
+                    </div>
+                <div class="row">
+                    <p class="col-md-5 float-left small mt-n2 ml-5 text-right"><a href="/signup">Create Your
+                        Account </a></p>
+                    <p class="col-md-4 ml-3 float-md-left small mt-n2 text-right"><a
+                            href="/account/password/reset/">Forgot Password?</a></p>
+                </div>
+
+                <p class="text-muted small">By signing in, you agree to our <a href="/terms/">Terms of Service</a>
+                    and <a href="/privacy-policy/">Privacy Policy</a>, which we may update from time to time. We’ll
+                    occasionally send you account-related emails.</p>
+                {{form.errors}}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg text-wrap px-5 mt-2 w-100"
+                            name="jsSubmitButton">Sign Up
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+    var form_fields = document.getElementsByTagName('input')
+		form_fields[1].placeholder='Username..';
+		form_fields[2].placeholder='Email..';
+		form_fields[3].placeholder='Enter password...';
+		form_fields[4].placeholder='Re-enter Password...';
+
+
+		for (var field in form_fields){
+			form_fields[field].className += ' form-control'
+		}
+</script>
+{% endblock %}

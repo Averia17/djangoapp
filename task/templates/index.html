@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Main Page
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+     <div class="page-header">
+        <h1 class="header-text">MEN'S CLOTHING</h1>
+    </div>
+
+    <ul class="all-items  ">
+        {% for product in all_items %}
+        <li class="item "><a href="/item_detail/{{product.id}}/">
+            <div class="item-img"><img sizes="100vw" src="{{ product.imageURL }}" alt=""></div>
+            <div class="item-info">
+                <h2 class="item-name">{{ product.name }}</h2>
+                <div class="item-price">
+                    <span class="span-item-price">{{ product.price }}$</span>
+                </div>
+            </div>
+        </a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
