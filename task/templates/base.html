@@ -33,8 +33,8 @@
 
                 <div class="row collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav col-md-3">
-                        <a href="#" class="nav-item nav-link">WOMEN</a>
-                        <a href="#" class="nav-item nav-link">MEN</a>
+                        <a href="/women/" class="nav-item nav-link">WOMEN</a>
+                        <a href="/men/" class="nav-item nav-link">MEN</a>
                     </div>
                     <div class="logo col-md-6">
                         <a href="/" class="logo-text ">Python Project</a>
@@ -46,9 +46,9 @@
                                 <div class="for-animation">
                                     <div class="first-line">
                                         <div class="hello">
-                                            <span class="text">Привет Averia</span>
+                                            <span class="text">Привет, {{request.user}}</span>
                                             <span class="exit">
-                                                <a class="" href="" data-testid="signout-link" tabindex="0">Выйти</a>
+                                                <a class="" href="/logout/" data-testid="signout-link" tabindex="0">Выйти</a>
                                             </span>
                                         </div>
                                         <button type="button" class="close" aria-label="Close">
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="nav-item nav-link tote-title">TOTE - 255</a>
+                        <a href="/cart/" class="nav-item nav-link tote-title">TOTE - 255</a>
                         <a href="#" class="cart cart-title">
                             <svg width="1.5em" height="0.9em" viewBox="0 0 35 29" class="css-j8tnu9 ebf4h9c7">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

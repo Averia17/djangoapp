@@ -37,7 +37,7 @@ Main Page
             et, fugiat iure labore mollitia nemo nulla perferendis quis tempora ullam unde veritatis vitae
             voluptatibus?</p>
         <div class="color">
-            <p>Color: <span>White</span></p>
+            <p>Color: <span>{{item.color}}</span></p>
         </div>
         <fieldset class="selection__size" data-qa-size="">
             <legend class="c-pwa-legend is-required">Size</legend>
@@ -215,6 +215,9 @@ Main Page
                     <a href="/" class=""> Size Guide</a>
                 </p>
             </div>
+            <button class="add-to-cart" data-product="{{item.id}}" data-action="add" type="submit">
+                Add to Bag
+            </button>
 
         </fieldset>
     </div>

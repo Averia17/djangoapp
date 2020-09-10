@@ -12,9 +12,7 @@
     flex: 1 0 auto;
     flex-direction: column;
 }
-.main {
-    margin: 2% 0;
-}
+
 .navbar {
     background: black;
 }
@@ -180,6 +178,7 @@
     align-items: center;
 }
 .header-text {
+    text-transform: uppercase;
     font-size: 3.2rem;
     color: black;
     font-family: 'Alata';
@@ -540,6 +539,61 @@ a:hover  {
     color: #0062cc;
     font-weight: 600;
     text-decoration: none;
+}
+
+.add-to-cart {
+    margin: 25px 0;
+    width: 100%;
+    padding: 10px 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    font-family: Helvetica,Arial,sans-serif;
+    letter-spacing: .05rem;
+    cursor: pointer;
+    transition-duration: .2s;
+    transition-property: color,background-color,border-color;
+    min-height: 45px;
+    border: 1px solid #222;
+    font-size: 1.8rem;
+    color: #fff;
+    background-color: #222;
+}
+
+#cart {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(209, 182, 147);
+    width: 100%;
+    min-height: calc(100vh - 4.9rem);
+}
+#cart .header-text {
+    color: rgb(0, 0, 0);
+    font-family: Gopher-Medium, sans-serif, -apple-system;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.cart-main {
+    padding-top: 4.8em;
+    flex-grow: 1;
+    background-color: rgb(209, 182, 147);
+}
+.cart-wrapper {
+        display: flex;
+    flex-direction: column;
+    padding-left: 4.8rem;
+    padding-right: 4.8rem;
+    place-content: start flex-start;
+    height: 100%;
+}
+#cart .main-info {
+    width: 100%;
+}
+#cart .cart-info {
+    width: 100%;
+}
+.cart-headers {
+    width: 100%;
+    display: flex;
 }
 
 @media (max-width: 760px) {

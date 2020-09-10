@@ -4,6 +4,7 @@ from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -15,6 +16,21 @@ def home(request):
     all_items = Product.objects.all()
     context = {'all_items': all_items}
     return render(request, 'index.html', context)
+
+
+def women(request):
+    women_items = Product.objects.filter(gender="W")
+    # if len(women_items) < 1:
+    gender = women_items[0].get_gender_display()
+    context = {'all_items': women_items, 'gender': gender}
+    return render(request, 'women.html', context)
+
+
+def men(request):
+    men_items = Product.objects.filter(gender="M")
+    gender = men_items[0].get_gender_display()
+    context = {'all_items': men_items, 'gender': gender}
+    return render(request, 'men.html', context)
 
 
 def item_detail(request, item_id):
@@ -76,3 +92,13 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('/login')
+
+
+def cart(request):
+    context = {}
+    return render(request, 'cart.html', context)
+
+
+def checkout(request):
+    context = {}
+    return render(request, 'checkout.html', context)
