@@ -14,6 +14,7 @@ class Product(models.Model):
     )
     gender = models.CharField(default=3, max_length=1, choices=GENDER_CHOICES)
     color = models.CharField(max_length=20, null=True)
+    size = models.CharField(max_length=20, null=True)
     image = models.ImageField(null=True, blank=True)
 
     def __str__(self):

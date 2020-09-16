@@ -31,6 +31,7 @@ urlpatterns = [
     path('women/', views.women),
     path('cart/', views.cart),
     path('checkout/', views.checkout),
+    path('update_item/', views.updateItem)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -24,7 +24,7 @@ Main Page
             </div>
         </div>
         <div class="main-img">
-            <img id="ProductImg" src="{% static 'img/example.jpg'%}" alt="">
+            <img id="ProductImg" src="{{ item.imageURL }}" alt="">
         </div>
 
     </div>
@@ -215,7 +215,7 @@ Main Page
                     <a href="/" class=""> Size Guide</a>
                 </p>
             </div>
-            <button class="add-to-cart" data-product="{{item.id}}" data-action="add" type="submit">
+            <button class="add-to-cart update-cart" data-product="{{item.id}}" data-action="add">
                 Add to Bag
             </button>
 
