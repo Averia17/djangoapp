@@ -14,7 +14,6 @@ class Product(models.Model):
     )
     gender = models.CharField(default=3, max_length=1, choices=GENDER_CHOICES)
     color = models.CharField(max_length=20, null=True)
-    size = models.CharField(max_length=20, null=True)
     image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
@@ -72,6 +71,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    size = models.CharField(max_length=20, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
