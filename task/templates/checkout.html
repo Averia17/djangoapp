@@ -1,10 +1,44 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Checkout Page</title>
 </head>
 <body>
+<div id="checkout">
+    <header class="checkout-header">
+        <h1 class="header-text">CHECKOUT</h1>
+    </header>
 
+    <main class="checkout-main">
+
+    </main>
+    <div class="summary-block">
+        <div class="summary-wrapper">
+            <div class="summary">
+                <h1 class="summary-header">Summary</h1>
+            </div>
+            <div class="summary-info">
+                <div class="subtotal">
+                    <p class="header">Subtotal</p>
+                    <p class="price">155$</p>
+                </div>
+                <div class="shipping">
+                    <p class="header">Shipping</p>
+                    <p class="price">0$</p>
+                </div>
+                <div class="total">
+                    <p class="header">Total</p>
+                    <p class="price">155$</p>
+                </div>
+            </div>
+            <div class="proceed_to_checkout-wrapper">
+                <a href="/checkout/" class="proceed_to_checkout"><span class="text">Proceed to checkout</span></a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-</html>

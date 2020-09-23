@@ -7,12 +7,11 @@ for (i = 0; i < updateBtns.length; i++) {
 		var action = this.dataset.action
 		var size = GetSize(this.dataset.size)
 
-		document.addEventListener('change', e => size = e.target.value);
 		console.log('productId:', productId, 'Action:', action)
 		console.log('USER:', user)
         console.log(size); //добавить try catch
 		if (user == 'AnonymousUser'){
-			addCookieItem(productId, action)
+			addCookieItem(productId, action, size)
 		}else{
 			updateUserOrder(productId, action, size)
 		}
@@ -56,26 +55,52 @@ function updateUserOrder(productId, action, size){
 		});
 }
 
-function addCookieItem(productId, action){
+function addCookieItem(productId, action, size){
 	console.log('User is not authenticated')
 
 	if (action == 'add'){
 		if (cart[productId] == undefined){
-		cart[productId] = {'quantity':1}
-
-		}else{
-			cart[productId]['quantity'] += 1
+		    cart[productId] = []
+            cart[productId][0] = {'quantity':1, 'size': size}
 		}
+		else
+		{
+		    isSizeInArray = false
+		    objectNum = 0
+		    for(k = 0; k < cart[productId].length; k++) {
+		        if(cart[productId][k]['size'] == size) {
+		            isSizeInArray = true
+		            objectNum = k
+		        }
+		    }
+		    if(isSizeInArray){
+		        cart[productId][objectNum]['quantity'] += 1
+		    }
+		    else {
+		        cart[productId][cart[productId].length] = {'quantity':1, 'size': size}
+		    }
+	    }
 	}
+    if (action == 'remove') {
+	    objectNum = 0
+	    console.log(cart[productId].length);
+        for(k = 0; k < cart[productId].length; k++) {
+            if(cart[productId][k]['size'] == size)
+            {
+               objectNum = k
+               break;
+            }
+        }
+        cart[productId][objectNum]['quantity'] -= 1
+        if (cart[productId][objectNum]['quantity'] <= 0)
+        {
+            console.log('Item should be deleted')
+            cart[productId].splice(objectNum, 1)
+           
+        }
 
-	if (action == 'remove'){
-		cart[productId]['quantity'] -= 1
+    }
 
-		if (cart[productId]['quantity'] <= 0){
-			console.log('Item should be deleted')
-			delete cart[productId];
-		}
-	}
 	console.log('CART:', cart)
 	document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
 

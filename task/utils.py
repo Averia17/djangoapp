@@ -13,30 +13,28 @@ def cookieCart(request):
     items = []
     order = {'get_cart_total': 0, 'get_cart_items': 0, 'shipping': False}
     cartItems = order['get_cart_items']
-
-    for i in cart:
+    for k in cart:
         # We use try block to prevent items in cart that may have been removed from causing error
-        try:
-            cartItems += cart[i]['quantity']
+        for i in cart[k]:
+            try:
+                cartItems += i['quantity']
+                product = Product.objects.get(id=k)
+                total = (product.price * i['quantity'])
+                size = i['size']
+                order['get_cart_total'] += total
+                order['get_cart_items'] += i['quantity']
+                item = {
+                    'id': product.id,
+                    'product': {'id': product.id, 'name': product.name, 'price': product.price, 'colo': product.color, 'imageURL': product.imageURL},
+                    'size': i['size'], 'quantity': i['quantity'],
+                    'digital': product.digital, 'get_total': total,
+                }
+                items.append(item)
 
-            product = Product.objects.get(id=i)
-            total = (product.price * cart[i]['quantity'])
-
-            order['get_cart_total'] += total
-            order['get_cart_items'] += cart[i]['quantity']
-
-            item = {
-                'id': product.id,
-                'product': {'id': product.id, 'name': product.name, 'price': product.price,
-                            'imageURL': product.imageURL}, 'quantity': cart[i]['quantity'],
-                'digital': product.digital, 'get_total': total,
-            }
-            items.append(item)
-
-            if product.digital == False:
-                order['shipping'] = True
-        except:
-            pass
+                if product.digital == False:
+                    order['shipping'] = True
+            except:
+                print("ERROR")
 
     return {'cartItems': cartItems, 'order': order, 'items': items}
 
