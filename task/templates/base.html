@@ -62,7 +62,6 @@
 
 	</script>
 </head>
-<body>
 
 <div id="root">
     <div class="bg">
@@ -74,7 +73,7 @@
                 </video>
             </div>
         </div>
-        <header>
+        <header class="header">
             <nav class="navbar px-5 navbar-expand-md navbar-dark">
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -82,9 +81,14 @@
 
                 <div class="row collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav col-md-3">
-                        <a href="/women/" class="nav-item nav-link">WOMEN</a>
-                        <a href="/men/" class="nav-item nav-link">MEN</a>
+                        <div class="dropdown-women">
+                            <a href="/women/" class="nav-item dropbtn nav-link">WOMEN</a>
+                        </div>
+                        <div class="dropdown-men">
+                        <a href="/men/" class="nav-item dropbtn nav-link">MEN</a>
+                        </div>
                     </div>
+
                     <div class="logo col-md-6">
                         <a href="/" class="logo-text ">Python Project</a>
                     </div>
@@ -124,8 +128,8 @@
                             </div>
                         </div>
                         <a href="/cart/" class="nav-item nav-link tote-title">TOTE - {{cartItems}}</a>
-                        <a href="#" class="cart cart-title">
-                            <svg width="1.5em" height="0.9em" viewBox="0 0 35 29" class="css-j8tnu9 ebf4h9c7">
+                        <a href="#" class="nav-item cart cart-title">
+                            <svg width="1.5em"  viewBox="0 0 39 39" class="css-j8tnu9 ebf4h9c7">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <g transform="translate(-1306.000000, -560.000000)">
                                         <g transform="translate(1306.000000, 560.000000)">
@@ -143,6 +147,74 @@
                     </div>
                 </div>
             </nav>
+            <div class="submenu submenu-men">
+                <div class="submenu-wrapper submenu-wrapper-men">
+                    <div class="submenu-main">
+                        <div class="submenu-column"><p class="header-column">Clothing</p>
+                            <ul>
+                                <li><a class="submenu-item" href="#">All
+                                    Clothing</a></li>
+                                <li><a class="submenu-item" href="#">Denim</a></li>
+                                <li><a class="submenu-item" href="/men/hoodie/">Hoodies</a>
+                                </li>
+                                <li><a class="submenu-item" href="/men/pants/">Pants</a>
+                                </li>
+                                <li><a class="submenu-item" href="#">Shirts</a></li>
+                                <li><a class="submenu-item" href="#">Sweaters &amp; Knitwear</a></li>
+                                <li><a class="submenu-item" href="#">T-Shirts</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-column"><p class="header-column">Accessories</p>
+                            <ul>
+                                <li><a class="submenu-item" href="#">All
+                                    Accessories</a></li>
+                                <li><a class="submenu-item" href="#">Bags</a></li>
+                                <li><a class="submenu-item" href="#">Hats</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-column"><p class="header-column">Collabs</p>
+                            <ul>
+                                <li><a class="submenu-item" href="#">OC x Teva</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="submenu submenu-women">
+                <div class="submenu-wrapper submenu-wrapper-women">
+                    <div class="submenu-main">
+                        <div class="submenu-column"><p class="header-column">Clothing</p>
+                            <ul>
+                                <li><a class="submenu-item" href="#">All
+                                    Clothing</a></li>
+                                <li><a class="submenu-item" href="#">Denim</a></li>
+                                <li><a class="submenu-item" href="#">Coates &amp; Jackets</a>
+                                </li>
+                                <li><a class="submenu-item" href="/women/hoodie/">Hoodies</a>
+                                </li>
+                                <li><a class="submenu-item" href="/women/pants/">Pants</a>
+                                </li>
+                                <li><a class="submenu-item" href="#">Skirts</a>
+                                </li>
+                                <li><a class="submenu-item" href="#">Sweaters &amp; Knitwear</a></li>
+                                <li><a class="submenu-item"
+                                       href="#">T-Shirts</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-column"><p class="header-column">Accessories</p>
+                            <ul>
+                                <li><a class="submenu-item" href="#">All
+                                    Accessories</a></li>
+                                <li><a class="submenu-item" href="#">Bags</a></li>
+                                <li><a class="submenu-item"
+                                       href="#">Hats</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </header>
         <main class="main">
             <div class="block">{% block body %}{% endblock %}</div>
@@ -230,7 +302,38 @@
      titleElem.onclick = function() {
       menuElem.classList.toggle('open');
     };
+
+</script>
+<script>
+    let menButton = document.querySelector('.dropdown-men');
+    let womenButton = document.querySelector('.dropdown-women');
+
+    let womenSubmenu = document.querySelector('.submenu-women');
+    let menSubmenu = document.querySelector('.submenu-men');
+
+    let menSubmenuWrapper = document.querySelector('.submenu-wrapper-men');
+    let womenSubmenuWrapper = document.querySelector('.submenu-wrapper-women');
+
+    let navbar = document.querySelector('.navbar-nav');
+    console.log(navbar);
+    womenButton.onmouseover = function(){womenSubmenu.style.display = "block";}
+    menButton.onmouseover = function(){menSubmenu.style.display = "block";}
+
+    womenButton.onmouseout = function(){womenSubmenu.style.display = "none";}
+    menButton.onmouseout = function(){menSubmenu.style.display = "none";}
+
+
+
+    womenSubmenuWrapper.onmouseover = function(){womenSubmenu.style.display = "block";}
+    menSubmenuWrapper.onmouseover = function(){menSubmenu.style.display = "block";}
+
+    womenSubmenuWrapper.onmouseout = function(){womenSubmenu.style.display = "none";}
+    menSubmenuWrapper.onmouseout = function(){menSubmenu.style.display = "none";}
+
+
 </script>
 <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/checkout.js' %}"></script>
+
 </body>
 </html>

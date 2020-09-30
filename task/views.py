@@ -1,3 +1,4 @@
+import stripe
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.core.mail import BadHeaderError, send_mail
@@ -6,6 +7,9 @@ from django.conf import settings
 from django.http import JsonResponse
 import json
 import datetime
+
+from django.urls import reverse
+
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -42,6 +46,18 @@ def men(request):
     gender = men_items[0].get_gender_display()
     context = {'all_items': men_items, 'gender': gender}
     return render(request, 'men.html', context)
+
+
+def menProductType(request, productType):
+    all_items = Product.objects.filter(productType=productType, gender="M")
+    context = {'all_items': all_items}
+    return render(request, 'men.html', context)
+
+
+def womenProductType(request, productType):
+    all_items = Product.objects.filter(productType=productType, gender="W")
+    context = {'all_items': all_items}
+    return render(request, 'women.html', context)
 
 
 def item_detail(request, item_id):
@@ -122,9 +138,23 @@ def checkout(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
-
-    context = {'items': items, 'order': order, 'cartItems': cartItems}
+    user = request.user
+    print(user)
+    context = {'items': items, 'order': order, 'cartItems': cartItems, 'user': user}
     return render(request, 'checkout.html', context)
+
+
+def charge(request):
+    amount = 5
+    if request.method == 'POST':
+        print('Data:', request.POST)
+
+    return redirect(reverse('success', args=[amount]))
+
+
+def successMsg(request, args):
+    amount = args
+    return render(request, 'base/success.html', {'amount': amount})
 
 
 def updateItem(request):
@@ -132,9 +162,6 @@ def updateItem(request):
     productId = data['productId']
     action = data['action']
     size = data['size']
-    print(size)
-    print('Action:', action)
-    print('Product:', productId)
 
     customer = request.user.customer
     product = Product.objects.get(id=productId)
@@ -155,6 +182,10 @@ def updateItem(request):
     return JsonResponse('Item was added', safe=False)
 
 
+def addAddress(request):
+    return "add"
+
+
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
@@ -167,19 +198,25 @@ def processOrder(request):
 
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
+    print("SUCCESS")
+    print("SUCCESS")
 
     if total == order.get_cart_total:
         order.complete = True
     order.save()
 
-    # if order.shipping == True:
-    #     ShippingAddress.objects.create(
-    #         customer=customer,
-    #         order=order,
-    #         address=data['shipping']['address'],
-    #         city=data['shipping']['city'],
-    #         state=data['shipping']['state'],
-    #         zipcode=data['shipping']['zipcode'],
-    #     )
+    if order.shipping == True:
+        ShippingAddress.objects.create(
+            customer=customer,
+            order=order,
+            name=data['shipping']['name'],
+            surname=data['shipping']['surname'],
+            mobile_phone=data['shipping']['mobile_phone'],
+            country=data['shipping']['county'],
+            address=data['shipping']['address'],
+            city=data['shipping']['city'],
+            region=data['shipping']['region'],
+            postcode=data['shipping']['postcode'],
+        )
 
     return JsonResponse('Payment submitted..', safe=False)

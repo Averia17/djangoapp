@@ -4,8 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Checkout Page</title>
+    <style>
+        <style type="text/css">
+		/**
+		 * The CSS shown here will not be introduced in the Quickstart guide, but shows
+		 * how you can use CSS to style your Element's container.
+		 */
+		.StripeElement {
+		  box-sizing: border-box;
+
+		  height: 40px;
+
+		  padding: 10px 12px;
+
+		  border: 1px solid transparent;
+		  border-radius: 4px;
+		  background-color: white;
+
+		  box-shadow: 0 1px 3px 0 #e6ebf1;
+		  -webkit-transition: box-shadow 150ms ease;
+		  transition: box-shadow 150ms ease;
+		}
+
+		.StripeElement--focus {
+		  box-shadow: 0 1px 3px 0 #cfd7df;
+		}
+
+		.StripeElement--invalid {
+		  border-color: #fa755a;
+		}
+
+		.StripeElement--webkit-autofill {
+		  background-color: #fefde5 !important;
+		}
+    </style>
 </head>
 <body>
 <div id="checkout">
@@ -14,31 +49,388 @@
     </header>
 
     <main class="checkout-main">
+        <div class="main-info">
+            <div class="">
+                <div class="box-element" id="form-wrapper">
+                    <form id="form" method="post">{% csrf_token %}
+                        <div class="promocode-wrapper">
+                            <label for="promocode" class="promocode-label">Add a promocode</label>
+                            <div class="promocode-input">
+                                <input type="text" id="promocode">
+                                <div class="">
+                                    <button class="promocode-button">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="email-wrapper">
+                            <h2 class="header">Email</h2>
+                            <div class="">
+                                <input  class="email-input" required type="email" name="email">
+                            </div>
+                        </div>
 
-    </main>
-    <div class="summary-block">
-        <div class="summary-wrapper">
-            <div class="summary">
-                <h1 class="summary-header">Summary</h1>
+                        <div  id="shipping-info" class="shipping-wrapper">
+
+                            <h2 class="header">Shipping information:</h2>
+
+                            <label for="name" class="shipping-label">Name</label>
+                            <div class="">
+                                <input type="text" name="name" id="name" class="name">
+                            </div>
+
+                            <label for="surname" class="shipping-label">Surname</label>
+                            <div class="">
+                                <input type="text" name="surname" id="surname" class="name">
+                            </div>
+
+                            <label for="phone" class="shipping-label">Mobile Phone</label>
+                            <div class="">
+                                <input type="text" name="mobile_phone" id="phone" class="name">
+                            </div>
+
+                            <label for="country" class="shipping-label">Country</label>
+                            <div class="">
+                                <input type="text" name="country" id="country" class="name">
+                            </div>
+
+                            <label for="address" class="shipping-label">Address</label>
+                            <div class="">
+                                <input type="text" name="address" id="address" class="name">
+                            </div>
+
+                            <label for="city" class="shipping-label">City</label>
+                            <div class="">
+                                <input type="text" name="city" id="city" class="name">
+                            </div>
+
+                            <label for="region" class="shipping-label">Region</label>
+                            <div class="">
+                                <input type="text" name="region" id="region" class="name">
+                            </div>
+
+                            <label for="postcode" class="shipping-label">Postcode</label>
+                            <div class="">
+                                <input type="text" name="postcode" id="postcode" class="name">
+                            </div>
+                            <button id="form-button" class="btn-submit" data-action="addAddress"> Continue</button>
+
+                        </div>
+                        <hr>
+                    </form>
+                </div>
             </div>
-            <div class="summary-info">
-                <div class="subtotal">
-                    <p class="header">Subtotal</p>
-                    <p class="price">155$</p>
+            <form action="{% url 'charge' %}" method="POST" id="payment-form">
+                <div id="card-element">
+
                 </div>
-                <div class="shipping">
-                    <p class="header">Shipping</p>
-                    <p class="price">0$</p>
+                <div id="card-errors" role="alert">
+
                 </div>
-                <div class="total">
-                    <p class="header">Total</p>
-                    <p class="price">155$</p>
+                <div class="box-element hidden" id="payment-info">
+                    <button id="card-button"  class="btn btn-primary btn-block" data-secret="{{ client_secret }}">Checkout</button>
                 </div>
-            </div>
-            <div class="proceed_to_checkout-wrapper">
-                <a href="/checkout/" class="proceed_to_checkout"><span class="text">Proceed to checkout</span></a>
+            </form>
+        </div>
+        <div class="checkout-summary">
+            <div class="summary-wrapper">
+                <div class="summary">
+                    <h1 class="summary-header">Summary</h1>
+                </div>
+                {% for item in items %}
+                            <div class="cart-row">
+                                <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+                                <div style="flex:2"><p>{{item.product.name}}</p></div>
+                                <div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
+                                <div style="flex:1"><p>x{{item.quantity}}</p></div>
+                            </div>
+                {% endfor %}
+                <div class="summary-info">
+                    <div class="subtotal">
+                        <p class="header">Subtotal</p>
+                        <p class="price">{{order.get_cart_total}}$</p>
+                    </div>
+                    <div class="shipping">
+                        <p class="header">Shipping</p>
+                        <p class="price">0$</p>
+                    </div>
+                    <div class="total">
+                        <p class="header">Total</p>
+                        <p class="price">{{order.get_cart_total}}$</p>
+                    </div>
+                </div>
+                <a  class="btn btn-outline-dark" href="/cart/">&#x2190; Back to Cart</a>
             </div>
         </div>
-    </div>
+    </main>
 </div>
+	<script src="https://js.stripe.com/v3/"></script>
+<script>
+	var total = {{order.get_cart_total}};
+	var shipping = '{{order.shipping}}'
+	var user  = '{{ user }}'
+	if (shipping == 'False'){
+		document.getElementById('shipping-info').innerHTML = ''
+	}
+	var button = document.getElementById('form-button')
+	button.onclick = submitFormData;
+
+	function submitFormData(){
+		console.log('Payment button clicked')
+		var form = document.getElementById('form')
+	
+		var userFormData = {
+			'name':null,
+			'surname':null,
+			'mobile_phone':null,
+			'email':null,
+			'total':total,
+		}
+
+		var shippingInfo = {
+			'country':null,
+			'address':null,
+			'city':null,
+			'region':null,
+			'postcode':null,
+		}
+
+		if (shipping != 'False'){
+			shippingInfo.country = form.country.value
+			shippingInfo.address = form.address.value
+			shippingInfo.city = form.city.value
+			shippingInfo.region = form.region.value
+			shippingInfo.postcode = form.postcode.value
+		}
+
+		if (user == 'AnonymousUser'){
+			userFormData.name = form.name.value
+			userFormData.surname = form.surname.value
+			userFormData.mobile_phone = form.mobile_phone.value
+			userFormData.email = form.email.value
+		}
+
+		console.log('Shipping Info:', shippingInfo)
+		console.log('User Info:', userFormData)
+
+		// var url = "/process_order/"
+		// fetch(url, {
+		// 	method:'POST',
+		// 	headers:{
+		// 		'Content-Type':'applicaiton/json',
+		// 		'X-CSRFToken':'{{ csrf_token }}',
+		// 	},
+		// 	body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
+
+		// })
+		// .then((response) => response.json())
+		// .then((data) => {
+		// 	console.log('Success:', data);
+		// 	alert('Transaction completed');
+
+		// 	cart = {}
+		// 	document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+		// 	window.location.href = "/"
+
+		// 	})
+	}
+
+</script>
+<script type="text/javascript">
+
+
+		var form = document.getElementById('payment-form');
+		var stripe = Stripe('pk_test_51HVwjWEBfSr4p5f11Stvn66ggMpD12YTg5AZ8MbbbPMwoujrnEBfm7UztyC6lVqqp5aX1aA8JgCBhgI4uy5yPhvU00LlSfplsV');
+		var elements = stripe.elements();
+
+		// Custom styling can be passed to options when creating an Element.
+		// (Note that this demo uses a wider set of styles than the guide below.)
+		var style = {
+		  base: {
+		    color: '#32325d',
+		    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+		    fontSmoothing: 'antialiased',
+		    fontSize: '16px',
+		    '::placeholder': {
+		      color: '#aab7c4'
+		    }
+		  },
+		  invalid: {
+		    color: '#fa755a',
+		    iconColor: '#fa755a'
+		  }
+		};
+
+		// Create an instance of the card Element.
+		var card = elements.create('card', {style: style});
+
+		// Add an instance of the card Element into the `card-element`
+		card.mount('#card-element');
+
+		// Handle real-time validation errors from the card Element.
+		card.addEventListener('change', function(event) {
+		  var displayError = document.getElementById('card-errors');
+		  if (event.error) {
+		    displayError.textContent = event.error.message;
+		  } else {
+		    displayError.textContent = '';
+		  }
+		});
+
+		// Handle form submission.
+		var form = document.getElementById('payment-form');
+		form.addEventListener('submit', function(event) {
+		  event.preventDefault();
+
+		  stripe.createToken(card).then(function(result) {
+		    if (result.error) {
+		      // Inform the user if there was an error.
+		      var errorElement = document.getElementById('card-errors');
+		      errorElement.textContent = result.error.message;
+		    } else {
+		      // Send the token to your server.
+		      stripeTokenHandler(result.token);
+		    }
+		  });
+		});
+
+		// Submit the form with the token ID.
+		function stripeTokenHandler(token) {
+		  // Insert the token ID into the form so it gets submitted to the server
+		  var form = document.getElementById('payment-form');
+		  var hiddenInput = document.createElement('input');
+		  hiddenInput.setAttribute('type', 'hidden');
+		  hiddenInput.setAttribute('name', 'stripeToken');
+		  hiddenInput.setAttribute('value', token.id);
+		  form.appendChild(hiddenInput);
+
+		  // Submit the form
+		  form.submit();
+		}
+
+</script>
+<!--    <script>
+		var total = '{{order.get_cart_total}}'
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+        	style: {
+                color:  'blue',
+                shape:  'rect',
+            },
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value:parseFloat(total).toFixed(2)
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    submitFormData()
+                });
+            }
+
+        }).render('#paypal-button-container');
+    </script>
+
+	<script type="text/javascript">
+		var shipping = '{{order.shipping}}'
+
+		if (shipping == 'False'){
+		 	document.getElementById('shipping-info').innerHTML = ''
+		}
+
+		if (user != 'AnonymousUser'){
+		 	document.getElementById('user-info').innerHTML = ''
+		 }
+
+		if (shipping == 'False' && user != 'AnonymousUser'){
+			//Hide entire form if user is logged in and shipping is false
+				document.getElementById('form-wrapper').classList.add("hidden");
+				//Show payment if logged in user wants to buy an item that does not require shipping
+			    document.getElementById('payment-info').classList.remove("hidden");
+		}
+
+		var form = document.getElementById('form')
+		form.addEventListener('submit', function(e){
+	    	e.preventDefault()
+	    	console.log('Form Submitted...')
+	    	document.getElementById('form-button').classList.add("hidden");
+	    	document.getElementById('payment-info').classList.remove("hidden");
+	    })
+
+		/*
+	    document.getElementById('make-payment').addEventListener('click', function(e){
+	    	submitFormData()
+	    })
+	    */
+
+	    function submitFormData(){
+	    	console.log('Payment button clicked')
+
+	    	var userFormData = {
+				'name':null,
+				'surname':null,
+				'mobile_phone':null,
+				'email':null,
+				'total':total,
+			}
+
+			var shippingInfo = {
+				'country':null,
+				'address':null,
+				'city':null,
+				'region':null,
+				'postcode':null,
+			}
+
+			if (shipping != 'False'){
+				shippingInfo.country = form.country.value
+	    		shippingInfo.address = form.address.value
+		    	shippingInfo.city = form.city.value
+		    	shippingInfo.region = form.region.value
+		    	shippingInfo.postcode = form.postcode.value
+	    	}
+
+	    	if (user == 'AnonymousUser'){
+	    		userFormData.name = form.name.value
+                userFormData.surname = form.surname.value
+                userFormData.mobile_phone = form.mobile_phone.value
+	    		userFormData.email = form.email.value
+	    	}
+
+	    	console.log('Shipping Info:', shippingInfo)
+	    	console.log('User Info:', userFormData)
+
+	    	var url = "/process_order/"
+	    	fetch(url, {
+	    		method:'POST',
+	    		headers:{
+	    			'Content-Type':'applicaiton/json',
+	    			'X-CSRFToken':csrftoken,
+	    		},
+	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
+
+	    	})
+	    	.then((response) => response.json())
+	    	.then((data) => {
+				console.log('Success:', data);
+				alert('Transaction completed');
+
+				cart = {}
+				document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+				window.location.href = "/"
+
+				})
+	    }-->
+	</script>
 </body>

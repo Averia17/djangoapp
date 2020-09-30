@@ -95,7 +95,7 @@ Cart Page
             <div class="summary-info">
                 <div class="subtotal">
                     <p class="header">Subtotal</p>
-                    <p class="price">155$</p>
+                    <p class="price">{{order.get_cart_total}}$</p>
                 </div>
                 <div class="shipping">
                     <p class="header">Shipping</p>
@@ -103,7 +103,7 @@ Cart Page
                 </div>
                 <div class="total">
                     <p class="header">Total</p>
-                    <p class="price">155$</p>
+                    <p class="price"> {{order.get_cart_total}}$</p>
                 </div>
             </div>
             <div class="proceed_to_checkout-wrapper">

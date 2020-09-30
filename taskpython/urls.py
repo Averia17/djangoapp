@@ -28,10 +28,16 @@ urlpatterns = [
     path('signup/', views.signup),
     path('logout/', views.logoutUser),
     path('men/', views.men),
+    path('men/<productType>/', views.menProductType),
+    path('women/<productType>/', views.womenProductType),
     path('women/', views.women),
     path('cart/', views.cart),
     path('checkout/', views.checkout),
-    path('update_item/', views.updateItem)
+    path('update_item/', views.updateItem),
+    path('add_address/', views.addAddress),
+    path('process_order/', views.processOrder, name="process_order"),
+    path('charge/', views.charge, name="charge"),
+    path('success/<str:args>/', views.successMsg, name="success"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
