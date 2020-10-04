@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_countries.fields import CountryField
 
 
 class Product(models.Model):
@@ -87,7 +88,7 @@ class ShippingAddress(models.Model):
     name = models.CharField(max_length=40, null=False)
     surname = models.CharField(max_length=40, null=False)
     mobile_phone = models.CharField(max_length=20, null=False)
-    country = models.CharField(max_length=200, null=False)
+    country = CountryField(multiple=False)
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=40, null=False)
     region = models.CharField(max_length=40, null=False)

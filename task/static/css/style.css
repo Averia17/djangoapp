@@ -9,25 +9,29 @@
 body {
         font-family: MonumentGrotesk-Regular, sans-serif, -apple-system;
 }
+
 .bg {
     min-height: 100%;
     display: flex;
     flex: 1 0 auto;
     flex-direction: column;
 }
+.header {
+    position:sticky;
+    z-index:100;
+    top:0;
+}
 li {
     list-style-type: none;
 }
-.header {
-    position:sticky;
-    top:0;
-}
+
 .navbar {
     padding-top: 0;
     padding-bottom: 0;
     background: black;
 }
 .navbar-dark .navbar-nav .nav-item {
+
     color: white;
 }
 .navbar-dark .navbar-nav .nav-item:hover {
@@ -39,7 +43,8 @@ li {
 }
 
 .nav-item {
-    padding: 15px 0px;
+    padding: 15px 5px;
+    cursor: pointer;
 }
 .submenu {
     display: none;
@@ -47,7 +52,6 @@ li {
     background-color: #f1f1f1;
     min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 100;
     top: 100%;
     left: 0px;
     width: 100%;
@@ -101,10 +105,6 @@ li {
 }
 .account .menu {
     display: none;
-
-}
-.account .menu.open {
-    display: block;
     position: absolute;
     overflow: hidden;
     left: -5%;
@@ -112,6 +112,8 @@ li {
     width: 100%;
     transition: max-height .6s;
     transition-delay: .25s;
+}
+#myaccount-dropdown {
 
 }
 .menu .menu-wrapper {
@@ -137,7 +139,6 @@ li {
     padding: 0 4%;
     background-color: #eee;
     display: flex;
-    z-index: 1;
     box-sizing: border-box;
     height: 50px;
     width: 100%;
@@ -667,7 +668,7 @@ a:hover  {
     font-weight: 400;
     font-size: 1.4rem;
 }
-.summary-info .header {
+.summary-info-header{
     font-family: futura-pt-n7,futura-pt,"Futura PT","Futura Book",Tahoma,Geneva,Verdana,Arial,sans-serif;
     font-weight: 500;
 }
@@ -915,15 +916,15 @@ a:hover  {
 
 }
 .checkout-main .main-info {
-    width: 70%;
-    padding-right: 10.8rem;
+    width: 75%;
+    padding-right: 15%;
 
 }
 
 .checkout-summary {
     padding: 20px 30px;
     height: 100%;
-    width: 30%;
+    width: 35%;
     background: white;
 }
 
@@ -1053,6 +1054,66 @@ a:hover  {
     font-size: 1.8rem;
     color: #fff;
     background-color: #222;
+}
+.cart-row {
+    display: flex;
+    margin-bottom: 5%;
+}
+.row-image {
+    width: 27%;
+}
+.row-info {
+    width: 68%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+}
+.row-price {
+    padding: 0.4rem 0;
+    font-family: futura-pt,Tahoma,Geneva,Verdana,Arial,sans-serif;
+    font-style: normal;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: .8rem;
+    letter-spacing: 1.6px;
+}
+.row-name {
+
+    font-family: futura-pt,Tahoma,Geneva,Verdana,Arial,sans-serif;
+    font-style: normal;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1rem;
+    margin: .3rem 0 ;
+}
+.row-color {
+    padding-right: 10%;
+}
+.color-size {
+    line-height: 1rem;
+    font-family: futura-pt,Tahoma,Geneva,Verdana,Arial,sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    margin: .3rem 0 ;
+    font-size: 1rem;
+    display: flex;
+}
+.row-quantity {
+
+    font-family: futura-pt,Tahoma,Geneva,Verdana,Arial,sans-serif;
+    font-style: normal;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1rem;
+    margin: .3rem 0 ;
+}
+.row-quantity-text {
+    line-height: 1rem;
+    font-family: futura-pt,Tahoma,Geneva,Verdana,Arial,sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    margin: .3rem 0 ;
+    font-size: 1rem;
 }
 @media (max-width: 760px) {
     .item {

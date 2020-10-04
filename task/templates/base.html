@@ -80,12 +80,12 @@
                 </button>
 
                 <div class="row collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav col-md-3">
+                    <div class="navbar-nav dropdown col-md-3">
                         <div class="dropdown-women">
-                            <a href="/women/" class="nav-item dropbtn nav-link">WOMEN</a>
+                            <div class="nav-item dropbtn ">WOMEN</div>
                         </div>
                         <div class="dropdown-men">
-                        <a href="/men/" class="nav-item dropbtn nav-link">MEN</a>
+                            <div class="nav-item dropbtn ">MEN</div>
                         </div>
                     </div>
 
@@ -93,7 +93,7 @@
                         <a href="/" class="logo-text ">Python Project</a>
                     </div>
                     <div class="navbar-nav col-md-3 account pr-0">
-                        <a href="#" class="account-title nav-item nav-link ">ACCOUNT</a>
+                        <a href="#" class="account-title nav-item  ">ACCOUNT</a>
                         <div class="menu" data-testid="myaccount-dropdown" id="myaccount-dropdown">
                             <div class="menu-wrapper">
                                 <div class="for-animation">
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/cart/" class="nav-item nav-link tote-title">TOTE - {{cartItems}}</a>
+                        <a href="/cart/" class="nav-item  tote-title">TOTE - {{cartItems}}</a>
                         <a href="#" class="nav-item cart cart-title">
                             <svg width="1.5em"  viewBox="0 0 39 39" class="css-j8tnu9 ebf4h9c7">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -152,7 +152,7 @@
                     <div class="submenu-main">
                         <div class="submenu-column"><p class="header-column">Clothing</p>
                             <ul>
-                                <li><a class="submenu-item" href="#">All
+                                <li><a class="submenu-item" href="/men/">All
                                     Clothing</a></li>
                                 <li><a class="submenu-item" href="#">Denim</a></li>
                                 <li><a class="submenu-item" href="/men/hoodie/">Hoodies</a>
@@ -186,7 +186,7 @@
                     <div class="submenu-main">
                         <div class="submenu-column"><p class="header-column">Clothing</p>
                             <ul>
-                                <li><a class="submenu-item" href="#">All
+                                <li><a class="submenu-item" href="/women/">All
                                     Clothing</a></li>
                                 <li><a class="submenu-item" href="#">Denim</a></li>
                                 <li><a class="submenu-item" href="#">Coates &amp; Jackets</a>
@@ -299,9 +299,11 @@
     let menuElem = document.getElementById('myaccount-dropdown');
     let titleElem = document.querySelector('.account-title');
 
-     titleElem.onclick = function() {
-      menuElem.classList.toggle('open');
-    };
+     titleElem.onmouseover = function() {menuElem.style.display = "block";}
+     menuElem.onmouseover = function() {menuElem.style.display = "block";}
+
+     titleElem.onmouseout = function() {menuElem.style.display = "none";}
+     menuElem.onmouseout = function() {menuElem.style.display = "none";}
 
 </script>
 <script>
@@ -313,16 +315,12 @@
 
     let menSubmenuWrapper = document.querySelector('.submenu-wrapper-men');
     let womenSubmenuWrapper = document.querySelector('.submenu-wrapper-women');
+    let navbar = document.querySelector('.navbar');
+    let logo = document.querySelector('.logo');
+    logo.onmouseover = function(){womenSubmenu.style.display = "none"; menSubmenu.style.display = "none";}
 
-    let navbar = document.querySelector('.navbar-nav');
-    console.log(navbar);
-    womenButton.onmouseover = function(){womenSubmenu.style.display = "block";}
-    menButton.onmouseover = function(){menSubmenu.style.display = "block";}
-
-    womenButton.onmouseout = function(){womenSubmenu.style.display = "none";}
-    menButton.onmouseout = function(){menSubmenu.style.display = "none";}
-
-
+    womenButton.onmouseover = function(){womenSubmenu.style.display = "block"; menSubmenu.style.display = "none"; }
+    menButton.onmouseover = function(){menSubmenu.style.display = "block"; womenSubmenu.style.display = "none"; }
 
     womenSubmenuWrapper.onmouseover = function(){womenSubmenu.style.display = "block";}
     menSubmenuWrapper.onmouseover = function(){menSubmenu.style.display = "block";}

@@ -20,6 +20,8 @@ from .forms import CreateUserForm
 from .models import Product, Customer
 from .utils import cookieCart, cartData, guestOrder
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 def home(request):
     data = cartData(request)
@@ -34,35 +36,50 @@ def home(request):
 
 
 def women(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
     women_items = Product.objects.filter(gender="W")
     # if len(women_items) < 1:
     gender = women_items[0].get_gender_display()
-    context = {'all_items': women_items, 'gender': gender}
+    context = {'all_items': women_items, 'gender': gender, 'cartItems': cartItems}
     return render(request, 'women.html', context)
 
 
 def men(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
     men_items = Product.objects.filter(gender="M")
     gender = men_items[0].get_gender_display()
-    context = {'all_items': men_items, 'gender': gender}
+    context = {'all_items': men_items, 'gender': gender, 'cartItems': cartItems}
     return render(request, 'men.html', context)
 
 
 def menProductType(request, productType):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
     all_items = Product.objects.filter(productType=productType, gender="M")
-    context = {'all_items': all_items}
+    context = {'all_items': all_items, 'cartItems': cartItems}
     return render(request, 'men.html', context)
 
 
 def womenProductType(request, productType):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
     all_items = Product.objects.filter(productType=productType, gender="W")
-    context = {'all_items': all_items}
+    context = {'all_items': all_items, 'cartItems': cartItems}
     return render(request, 'women.html', context)
 
 
 def item_detail(request, item_id):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
     item = Product.objects.get(id=item_id)
-    context = {'item': item}
+    context = {'item': item, 'cartItems': cartItems}
     return render(request, 'item_detail.html', context)
 
 
@@ -85,6 +102,9 @@ def subscribe(request):
 
 
 def signup(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -95,11 +115,14 @@ def signup(request):
 
             return redirect('/login')
 
-    context = {'form': form}
+    context = {'form': form, 'cartItems': cartItems}
     return render(request, 'signup.html', context)
 
 
 def loginPage(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -112,7 +135,7 @@ def loginPage(request):
         else:
             messages.info(request, 'Username OR password is incorrect')
 
-    context = {}
+    context = {'cartItems': cartItems}
     return render(request, 'login.html', context)
 
 

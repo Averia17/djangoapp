@@ -43,125 +43,129 @@
     </style>
 </head>
 <body>
-<div id="checkout">
-    <header class="checkout-header">
-        <h1 class="header-text">CHECKOUT</h1>
-    </header>
+<header class="checkout-header">
+    <h1 class="header-text">CHECKOUT</h1>
+</header>
 
-    <main class="checkout-main">
-        <div class="main-info">
-            <div class="">
-                <div class="box-element" id="form-wrapper">
-                    <form id="form" method="post">{% csrf_token %}
-                        <div class="promocode-wrapper">
-                            <label for="promocode" class="promocode-label">Add a promocode</label>
-                            <div class="promocode-input">
-                                <input type="text" id="promocode">
-                                <div class="">
-                                    <button class="promocode-button">Apply</button>
-                                </div>
+<main class="checkout-main">
+    <div class="main-info">
+        <div class="">
+            <div class="box-element" id="form-wrapper">
+                <form id="form" method="post">{% csrf_token %}
+                    <div class="promocode-wrapper">
+                        <label for="promocode" class="promocode-label">Add a promocode</label>
+                        <div class="promocode-input">
+                            <input type="text" id="promocode">
+                            <div class="">
+                                <button class="promocode-button">Apply</button>
                             </div>
                         </div>
-                        <div class="email-wrapper">
-                            <h2 class="header">Email</h2>
-                            <div class="">
-                                <input  class="email-input" required type="email" name="email">
-                            </div>
+                    </div>
+                    <div class="email-wrapper">
+                        <h2 class="header">Email</h2>
+                        <div class="">
+                            <input  class="email-input" required type="email" name="email">
+                        </div>
+                    </div>
+
+                    <div  id="shipping-info" class="shipping-wrapper">
+
+                        <h2 class="header">Shipping information:</h2>
+
+                        <label for="name" class="shipping-label">Name</label>
+                        <div class="">
+                            <input type="text" name="name" id="name" class="name">
                         </div>
 
-                        <div  id="shipping-info" class="shipping-wrapper">
-
-                            <h2 class="header">Shipping information:</h2>
-
-                            <label for="name" class="shipping-label">Name</label>
-                            <div class="">
-                                <input type="text" name="name" id="name" class="name">
-                            </div>
-
-                            <label for="surname" class="shipping-label">Surname</label>
-                            <div class="">
-                                <input type="text" name="surname" id="surname" class="name">
-                            </div>
-
-                            <label for="phone" class="shipping-label">Mobile Phone</label>
-                            <div class="">
-                                <input type="text" name="mobile_phone" id="phone" class="name">
-                            </div>
-
-                            <label for="country" class="shipping-label">Country</label>
-                            <div class="">
-                                <input type="text" name="country" id="country" class="name">
-                            </div>
-
-                            <label for="address" class="shipping-label">Address</label>
-                            <div class="">
-                                <input type="text" name="address" id="address" class="name">
-                            </div>
-
-                            <label for="city" class="shipping-label">City</label>
-                            <div class="">
-                                <input type="text" name="city" id="city" class="name">
-                            </div>
-
-                            <label for="region" class="shipping-label">Region</label>
-                            <div class="">
-                                <input type="text" name="region" id="region" class="name">
-                            </div>
-
-                            <label for="postcode" class="shipping-label">Postcode</label>
-                            <div class="">
-                                <input type="text" name="postcode" id="postcode" class="name">
-                            </div>
-                            <button id="form-button" class="btn-submit" data-action="addAddress"> Continue</button>
-
+                        <label for="surname" class="shipping-label">Surname</label>
+                        <div class="">
+                            <input type="text" name="surname" id="surname" class="name">
                         </div>
-                        <hr>
-                    </form>
-                </div>
+
+                        <label for="phone" class="shipping-label">Mobile Phone</label>
+                        <div class="">
+                            <input type="text" name="mobile_phone" id="phone" class="name">
+                        </div>
+
+                        <label for="country" class="shipping-label">Country</label>
+                        <div class="">
+                            <input type="text" name="country" id="country" class="name">
+                        </div>
+
+                        <label for="address" class="shipping-label">Address</label>
+                        <div class="">
+                            <input type="text" name="address" id="address" class="name">
+                        </div>
+
+                        <label for="city" class="shipping-label">City</label>
+                        <div class="">
+                            <input type="text" name="city" id="city" class="name">
+                        </div>
+
+                        <label for="region" class="shipping-label">Region</label>
+                        <div class="">
+                            <input type="text" name="region" id="region" class="name">
+                        </div>
+
+                        <label for="postcode" class="shipping-label">Postcode</label>
+                        <div class="">
+                            <input type="text" name="postcode" id="postcode" class="name">
+                        </div>
+                        <button id="form-button" class="btn-submit" data-action="addAddress"> Continue</button>
+
+                    </div>
+                    <hr>
+                </form>
             </div>
-            <form action="{% url 'charge' %}" method="POST" id="payment-form">
-                <div id="card-element">
-
-                </div>
-                <div id="card-errors" role="alert">
-
-                </div>
-                <div class="box-element hidden" id="payment-info">
-                    <button id="card-button"  class="btn btn-primary btn-block" data-secret="{{ client_secret }}">Checkout</button>
-                </div>
-            </form>
         </div>
-        <div class="checkout-summary">
-            <div class="summary-wrapper">
-                <div class="summary">
-                    <h1 class="summary-header">Summary</h1>
-                </div>
+        <form action="{% url 'charge' %}" method="POST" id="payment-form">
+            <div id="card-element">
+
+            </div>
+            <div id="card-errors" role="alert">
+
+            </div>
+            <div class="box-element hidden" id="payment-info">
+                <button id="card-button"  class="btn btn-primary btn-block" data-secret="{{ client_secret }}">Checkout</button>
+            </div>
+        </form>
+    </div>
+    <div class="checkout-summary">
+        <li class="summary-wrapper">
+            <div class="summary">
+                <h1 class="summary-header">Summary</h1>
+            </div>
+            <ul>
                 {% for item in items %}
-                            <div class="cart-row">
-                                <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
-                                <div style="flex:2"><p>{{item.product.name}}</p></div>
-                                <div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
-                                <div style="flex:1"><p>x{{item.quantity}}</p></div>
-                            </div>
+                <li class="cart-row">
+                    <div class="row-image" ><img src="{{item.product.imageURL}}"></div>
+                    <div class="row-info">
+                        <div class="row-price">${{item.product.price|floatformat:2}}</div>
+                        <div class="row-name">{{item.product.name}}</div>
+                        <div class="color-size"><div class="row-color">{{item.product.color}}</div>
+                            <div class="row-size">{{item.size}}</div></div>
+                        <div class="row-quantity">Quantity: <span class="row-quantity-text">{{item.quantity}}</span></div>
+                    </div>
+                </li>
                 {% endfor %}
-                <div class="summary-info">
-                    <div class="subtotal">
-                        <p class="header">Subtotal</p>
-                        <p class="price">{{order.get_cart_total}}$</p>
-                    </div>
-                    <div class="shipping">
-                        <p class="header">Shipping</p>
-                        <p class="price">0$</p>
-                    </div>
-                    <div class="total">
-                        <p class="header">Total</p>
-                        <p class="price">{{order.get_cart_total}}$</p>
-                    </div>
+            </ul>
+            <div class="summary-info">
+                <div class="subtotal">
+                    <p class="summary-info-header">Subtotal</p>
+                    <p class="price">{{order.get_cart_total}}$</p>
                 </div>
-                <a  class="btn btn-outline-dark" href="/cart/">&#x2190; Back to Cart</a>
+                <div class="shipping">
+                    <p class="summary-info-header">Shipping</p>
+                    <p class="price">0$</p>
+                </div>
+                <div class="total">
+                    <p class="summary-info-header">Total</p>
+                    <p class="price">{{order.get_cart_total}}$</p>
+                </div>
             </div>
+            <a  class="btn btn-outline-dark" href="/cart/">&#x2190; Back to Cart</a>
         </div>
-    </main>
+</main>
 </div>
 	<script src="https://js.stripe.com/v3/"></script>
 <script>
