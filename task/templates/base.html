@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     <title>{% block title %}{% endblock %}</title>
     <script type="text/javascript">
 		var user = '{{request.user}}'
@@ -97,7 +98,7 @@
                         <div class="menu" data-testid="myaccount-dropdown" id="myaccount-dropdown">
                             <div class="menu-wrapper">
                                 <div class="for-animation">
-                                    <div class="first-line">
+                                    <div class="first-line" id="log">
                                         <div class="hello">
                                             <span class="text">Привет, {{request.user}}</span>
                                             <span class="exit">
@@ -107,6 +108,20 @@
                                         <button type="button" class="close" aria-label="Close">
                                             <span class="close-span" aria-hidden="true">&times;</span>
                                         </button>
+                                    </div>
+                                    <div class="first-line" id="dontlog">
+                                        <div class="hello">
+                                            <span class="login">
+                                                <a  class="login" href="/login/" data-testid="signout-link" tabindex="0">Войти</a>
+                                            </span>
+                                             <span>
+                                                <a class="logout" href="/signup/" data-testid="signout-link" tabindex="0">Регистрация</a>
+                                            </span>
+                                        </div>
+                                        <button type="button" class="close" aria-label="Close">
+                                            <span class="close-span" aria-hidden="true">&times;</span>
+                                        </button>
+
                                     </div>
                                     <ul class="list">
                                         <li>
@@ -127,9 +142,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/cart/" class="nav-item  tote-title">TOTE - {{cartItems}}</a>
+                        <a href="/cart/" class="nav-item  tote-title">TOTE - <span id="cartItems">{{cartItems}}</span></a>
                         <a href="#" class="nav-item cart cart-title">
-                            <svg width="1.5em"  viewBox="0 0 39 39" class="css-j8tnu9 ebf4h9c7">
+                            <svg width="1.5em"  viewBox="0 0 39 39">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <g transform="translate(-1306.000000, -560.000000)">
                                         <g transform="translate(1306.000000, 560.000000)">
@@ -233,21 +248,21 @@
                         <form action="/subscribe/" method="post">{% csrf_token %}
                             <div class="email">
                                 <label for="email">EMAIL ADDRESS*</label><br>
-                                <input type="email" id="email" name="email" class="form-control">
+                                <input type="email" required id="email" name="email" class="form-control">
                             </div>
                             <p class="areyou">Are you?</p>
                             <div class="gender">
                                 <div class="some-gender">
-                                    <input type="radio" id="women" name="gender">
+                                    <input type="radio"  required id="women" name="gender">
                                     <label for="women">Women</label>
                                 </div>
                                 <div class="some-gender">
-                                    <input type="radio" id="men" name="gender">
+                                    <input type="radio" required id="men" name="gender">
                                     <label for="men">Men</label>
 
                                 </div>
                                 <div class="some-gender">
-                                    <input type="radio" id="all" name="gender">
+                                    <input type="radio" required id="all" name="gender">
                                     <label for="all">All</label>
                                 </div>
                             </div>
@@ -296,6 +311,17 @@
     </div>
 </div>
 <script>
+    let signIn = document.getElementById('log');
+    let signOut = document.getElementById('dontlog');
+
+    if (user == 'AnonymousUser'){
+        signOut.style.display = "block";
+   	}else{
+		signIn.style.display = "block";
+	}
+
+</script>
+<script>
     let menuElem = document.getElementById('myaccount-dropdown');
     let titleElem = document.querySelector('.account-title');
 
@@ -305,6 +331,7 @@
      titleElem.onmouseout = function() {menuElem.style.display = "none";}
      menuElem.onmouseout = function() {menuElem.style.display = "none";}
 
+    document.getElementsByClassName('close')[0].onclick = function() {menuElem.style.display = "none";}
 </script>
 <script>
     let menButton = document.querySelector('.dropdown-men');
@@ -331,7 +358,6 @@
 
 </script>
 <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/checkout.js' %}"></script>
 
 </body>
 </html>

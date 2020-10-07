@@ -43,398 +43,251 @@
     </style>
 </head>
 <body>
-<header class="checkout-header">
-    <h1 class="header-text">CHECKOUT</h1>
-</header>
+<div id="checkout">
+    <header class="checkout-header">
+        <h1 class="header-text">CHECKOUT</h1>
+    </header>
 
-<main class="checkout-main">
-    <div class="main-info">
-        <div class="">
-            <div class="box-element" id="form-wrapper">
-                <form id="form" method="post">{% csrf_token %}
-                    <div class="promocode-wrapper">
-                        <label for="promocode" class="promocode-label">Add a promocode</label>
-                        <div class="promocode-input">
-                            <input type="text" id="promocode">
-                            <div class="">
-                                <button class="promocode-button">Apply</button>
+    <main class="checkout-main">
+        <div class="main-info">
+            <div class="">
+                <div class="box-element" id="form-wrapper">
+                    <form id="form" method="post">{% csrf_token %}
+                        <div class="promocode-wrapper">
+                            <label for="promocode" class="promocode-label">Add a promocode</label>
+                            <div class="promocode-input">
+                                <input type="text" id="promocode">
+                                <div class="">
+                                    <button class="promocode-button">Apply</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="email-wrapper">
-                        <h2 class="header">Email</h2>
-                        <div class="">
-                            <input  class="email-input" required type="email" name="email">
-                        </div>
-                    </div>
+                        <div class="email-wrapper">
+                            <h2 class="header">Email</h2>
+                            <div class="">
+                                <input  class="email-input" required type="email" name="email">
+                            </div>
+						</div>
+						<div class="shipping-wrapper">
+							<h2 class="header">Shipping information:</h2>
+							
+							<div  id="shipping-info" >
+								<label for="name" class="shipping-label">Name</label>
+								<div class="">
+									<input type="text" name="name" id="name" class="name">
+								</div>
 
-                    <div  id="shipping-info" class="shipping-wrapper">
+								<label for="surname" class="shipping-label">Surname</label>
+								<div class="">
+									<input type="text" name="surname" id="surname" class="name">
+								</div>
 
-                        <h2 class="header">Shipping information:</h2>
+								<label for="phone" class="shipping-label">Mobile Phone</label>
+								<div class="">
+									<input type="text" name="mobile_phone" id="phone" class="name">
+								</div>
 
-                        <label for="name" class="shipping-label">Name</label>
-                        <div class="">
-                            <input type="text" name="name" id="name" class="name">
-                        </div>
+								<label for="country" class="shipping-label">Country</label>
+								<div class="">
+									<input type="text" name="country" id="country" class="name">
+								</div>
 
-                        <label for="surname" class="shipping-label">Surname</label>
-                        <div class="">
-                            <input type="text" name="surname" id="surname" class="name">
-                        </div>
+								<label for="address" class="shipping-label">Address</label>
+								<div class="">
+									<input type="text" name="address" id="address" class="name">
+								</div>
 
-                        <label for="phone" class="shipping-label">Mobile Phone</label>
-                        <div class="">
-                            <input type="text" name="mobile_phone" id="phone" class="name">
-                        </div>
+								<label for="city" class="shipping-label">City</label>
+								<div class="">
+									<input type="text" name="city" id="city" class="name">
+								</div>
 
-                        <label for="country" class="shipping-label">Country</label>
-                        <div class="">
-                            <input type="text" name="country" id="country" class="name">
-                        </div>
+								<label for="region" class="shipping-label">Region</label>
+								<div class="">
+									<input type="text" name="region" id="region" class="name">
+								</div>
 
-                        <label for="address" class="shipping-label">Address</label>
-                        <div class="">
-                            <input type="text" name="address" id="address" class="name">
-                        </div>
+								<label for="postcode" class="shipping-label">Postcode</label>
+								<div class="">
+									<input type="text" name="postcode" id="postcode" class="name">
+								</div>
+								<div id="form-button" class="btn-submit" > Continue</div>
 
-                        <label for="city" class="shipping-label">City</label>
-                        <div class="">
-                            <input type="text" name="city" id="city" class="name">
-                        </div>
+							</div>
+						
+							<div  id="shipping-info2" class="shipping-wrapper2">
+								<div class="shipping-name"></div>
+								<div class="shipping-surname"></div>
+								<div class="shipping-mobile-phone"></div>
+								<div class="shipping-country"></div>
+								<div class="shipping-address"></div>
+								<div class="shipping-city"></div>
+								<div class="shipping-region"></div>
+								<div class="shipping-postcode"></div>
+								<div id="edit-button" class="btn-submit" > Edit</div>
+							</div>
+						</div>
+                        <hr>
+                    </form>
+                </div>
+			</div>
+			<div id="laststep">
+				<form action="{% url 'charge' %}" method="POST" id="payment-form">
+					<div id="card-element">
 
-                        <label for="region" class="shipping-label">Region</label>
-                        <div class="">
-                            <input type="text" name="region" id="region" class="name">
-                        </div>
+					</div>
+					<div id="card-errors" role="alert">
 
-                        <label for="postcode" class="shipping-label">Postcode</label>
-                        <div class="">
-                            <input type="text" name="postcode" id="postcode" class="name">
-                        </div>
-                        <button id="form-button" class="btn-submit" data-action="addAddress"> Continue</button>
-
-                    </div>
-                    <hr>
-                </form>
-            </div>
+					</div>
+					
+				</form>
+				<div class="box-element hidden" id="payment-info">
+					<button id="card-button"  class="btn btn-primary btn-block" data-secret="{{ client_secret }}">Checkout</button>
+				</div>
+			</div>
         </div>
-        <form action="{% url 'charge' %}" method="POST" id="payment-form">
-            <div id="card-element">
-
-            </div>
-            <div id="card-errors" role="alert">
-
-            </div>
-            <div class="box-element hidden" id="payment-info">
-                <button id="card-button"  class="btn btn-primary btn-block" data-secret="{{ client_secret }}">Checkout</button>
-            </div>
-        </form>
-    </div>
-    <div class="checkout-summary">
-        <li class="summary-wrapper">
-            <div class="summary">
-                <h1 class="summary-header">Summary</h1>
-            </div>
-            <ul>
+        <div class="checkout-summary">
+            <div class="summary-wrapper">
+                <div class="summary">
+                    <h1 class="summary-header">Summary</h1>
+                </div>
+                <ul>
                 {% for item in items %}
-                <li class="cart-row">
-                    <div class="row-image" ><img src="{{item.product.imageURL}}"></div>
-                    <div class="row-info">
-                        <div class="row-price">${{item.product.price|floatformat:2}}</div>
-                        <div class="row-name">{{item.product.name}}</div>
-                        <div class="color-size"><div class="row-color">{{item.product.color}}</div>
-                            <div class="row-size">{{item.size}}</div></div>
-                        <div class="row-quantity">Quantity: <span class="row-quantity-text">{{item.quantity}}</span></div>
-                    </div>
-                </li>
+                    <li class="cart-row">
+                        <div class="row-image" ><img src="{{item.product.imageURL}}"></div>
+                        <div class="row-info">
+                            <div class="row-price">${{item.product.price|floatformat:2}}</div>
+                            <div class="row-name">{{item.product.name}}</div>
+                            <div class="color-size">
+								<div class="row-color">{{item.product.color}}</div>
+								<div class="row-size">{{item.size}}</div>
+							</div>
+                            <div class="row-quantity">Quantity: <span class="row-quantity-text">{{item.quantity}}</span></div>
+                        </div>
+                    </li>
                 {% endfor %}
-            </ul>
-            <div class="summary-info">
-                <div class="subtotal">
-                    <p class="summary-info-header">Subtotal</p>
-                    <p class="price">{{order.get_cart_total}}$</p>
+                </ul>
+                <div class="summary-info">
+                    <div class="subtotal">
+                        <p class="header">Subtotal</p>
+                        <p class="price">{{order.get_cart_total}}$</p>
+                    </div>
+                    <div class="shipping">
+                        <p class="header">Shipping</p>
+                        <p class="price">0$</p>
+                    </div>
+                    <div class="total">
+                        <p class="header">Total</p>
+                        <p class="price">{{order.get_cart_total}}$</p>
+                    </div>
                 </div>
-                <div class="shipping">
-                    <p class="summary-info-header">Shipping</p>
-                    <p class="price">0$</p>
-                </div>
-                <div class="total">
-                    <p class="summary-info-header">Total</p>
-                    <p class="price">{{order.get_cart_total}}$</p>
-                </div>
+                <a  class="btn btn-outline-dark" href="/cart/">&#x2190; Back to Cart</a>
             </div>
-            <a  class="btn btn-outline-dark" href="/cart/">&#x2190; Back to Cart</a>
         </div>
-</main>
+    </main>
 </div>
-	<script src="https://js.stripe.com/v3/"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'js/main.js' %}"></script>
 <script>
-	var total = {{order.get_cart_total}};
-	var shipping = '{{order.shipping}}'
-	var user  = '{{ user }}'
-	if (shipping == 'False'){
-		document.getElementById('shipping-info').innerHTML = ''
-	}
-	var button = document.getElementById('form-button')
-	button.onclick = submitFormData;
-
-	function submitFormData(){
-		console.log('Payment button clicked')
-		var form = document.getElementById('form')
 	
-		var userFormData = {
-			'name':null,
-			'surname':null,
-			'mobile_phone':null,
-			'email':null,
-			'total':total,
-		}
 
-		var shippingInfo = {
-			'country':null,
-			'address':null,
-			'city':null,
-			'region':null,
-			'postcode':null,
-		}
+var total = {{order.get_cart_total}};
+var shipping = '{{order.shipping}}'
+var user  = '{{ user }}'
+if (shipping == 'False'){
+    document.getElementById('shipping-info').innerHTML = ''
+}
 
-		if (shipping != 'False'){
-			shippingInfo.country = form.country.value
-			shippingInfo.address = form.address.value
-			shippingInfo.city = form.city.value
-			shippingInfo.region = form.region.value
-			shippingInfo.postcode = form.postcode.value
-		}
+document.getElementById('edit-button').onclick = function(){
+	shipping_inputs = document.getElementById("shipping-info");
+    console.log(shipping_inputs);
+    shipping_inputs.style.display = "block";
+    shipping_inputs2 = document.getElementById("shipping-info2");
+    shipping_inputs2.style.display = "none";
+}
+document.getElementById('form-button').onclick = function submitFormData(){
+    console.log('Payment button clicked')
+    var form = document.getElementById('form')
+    userFormData = {
+        'name':null,
+        'surname':null,
+        'mobile_phone':null,
+        'email':null,
+        'total':total,
+    }
 
-		if (user == 'AnonymousUser'){
-			userFormData.name = form.name.value
-			userFormData.surname = form.surname.value
-			userFormData.mobile_phone = form.mobile_phone.value
-			userFormData.email = form.email.value
-		}
+    shippingInfo = {
+        'country':null,
+        'address':null,
+        'city':null,
+        'region':null,
+        'postcode':null,
+    }
 
-		console.log('Shipping Info:', shippingInfo)
-		console.log('User Info:', userFormData)
 
-		// var url = "/process_order/"
-		// fetch(url, {
-		// 	method:'POST',
-		// 	headers:{
-		// 		'Content-Type':'applicaiton/json',
-		// 		'X-CSRFToken':'{{ csrf_token }}',
-		// 	},
-		// 	body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
+    shippingInfo.country = form.country.value
+    shippingInfo.address = form.address.value
+    shippingInfo.city = form.city.value
+    shippingInfo.region = form.region.value
+    shippingInfo.postcode = form.postcode.value
 
-		// })
-		// .then((response) => response.json())
-		// .then((data) => {
-		// 	console.log('Success:', data);
-		// 	alert('Transaction completed');
 
-		// 	cart = {}
-		// 	document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    userFormData.name = form.name.value
+    userFormData.surname = form.surname.value
+    userFormData.mobile_phone = form.mobile_phone.value
+    userFormData.email = form.email.value
 
-		// 	window.location.href = "/"
+    console.log('Shipping Info:', shippingInfo)
+    console.log('User Info:', userFormData)
+    shipping_inputs = document.getElementById("shipping-info");
+    console.log(shipping_inputs);
+    shipping_inputs.style.display = "none";
+    shipping_inputs2 = document.getElementById("shipping-info2");
+    shipping_inputs2.style.display = "block";
+    
+    let shipping_name = document.getElementsByClassName("shipping-name");
+    let shipping_surname = document.getElementsByClassName("shipping-surname");
+    let shipping_mobile_phone = document.getElementsByClassName("shipping-mobile-phone");
+    let shipping_country = document.getElementsByClassName("shipping-country");
+    let shipping_address = document.getElementsByClassName("shipping-address");
+    let shipping_city = document.getElementsByClassName("shipping-city");
+    let shipping_region = document.getElementsByClassName("shipping-region");
+    let shipping_postcode = document.getElementsByClassName("shipping-postcode");
 
-		// 	})
-	}
+    shipping_name[0].innerHTML = userFormData.name;
+    shipping_surname[0].innerHTML = userFormData.surname;
+    shipping_mobile_phone[0].innerHTML = userFormData.mobile_phone;
+    shipping_country[0].innerHTML = shippingInfo.country;
+    shipping_address[0].innerHTML = shippingInfo.address;
+    shipping_city[0].innerHTML = shippingInfo.city;
+    shipping_region[0].innerHTML = shippingInfo.region;
+	shipping_postcode[0].innerHTML = shippingInfo.postcode;
+	document.getElementById("laststep").style.display = "block";
+}
+document.getElementById('-button').onclick = function Checkout() {
+    console.log('Shipping Info:', shippingInfo)
+    console.log('User Info:', userFormData)
+    var url = "/process_order/"
+    fetch(url, {
+        method:'POST',
+        headers:{
+            'Content-Type':'applicaiton/json',
+            'X-CSRFToken':'{{ csrf_token }}',
+        },
+        body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
 
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log('Success:', data);
+
+        cart = {}
+        document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+        window.location.href = "/"
+
+        })
+    }
 </script>
-<script type="text/javascript">
 
-
-		var form = document.getElementById('payment-form');
-		var stripe = Stripe('pk_test_51HVwjWEBfSr4p5f11Stvn66ggMpD12YTg5AZ8MbbbPMwoujrnEBfm7UztyC6lVqqp5aX1aA8JgCBhgI4uy5yPhvU00LlSfplsV');
-		var elements = stripe.elements();
-
-		// Custom styling can be passed to options when creating an Element.
-		// (Note that this demo uses a wider set of styles than the guide below.)
-		var style = {
-		  base: {
-		    color: '#32325d',
-		    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-		    fontSmoothing: 'antialiased',
-		    fontSize: '16px',
-		    '::placeholder': {
-		      color: '#aab7c4'
-		    }
-		  },
-		  invalid: {
-		    color: '#fa755a',
-		    iconColor: '#fa755a'
-		  }
-		};
-
-		// Create an instance of the card Element.
-		var card = elements.create('card', {style: style});
-
-		// Add an instance of the card Element into the `card-element`
-		card.mount('#card-element');
-
-		// Handle real-time validation errors from the card Element.
-		card.addEventListener('change', function(event) {
-		  var displayError = document.getElementById('card-errors');
-		  if (event.error) {
-		    displayError.textContent = event.error.message;
-		  } else {
-		    displayError.textContent = '';
-		  }
-		});
-
-		// Handle form submission.
-		var form = document.getElementById('payment-form');
-		form.addEventListener('submit', function(event) {
-		  event.preventDefault();
-
-		  stripe.createToken(card).then(function(result) {
-		    if (result.error) {
-		      // Inform the user if there was an error.
-		      var errorElement = document.getElementById('card-errors');
-		      errorElement.textContent = result.error.message;
-		    } else {
-		      // Send the token to your server.
-		      stripeTokenHandler(result.token);
-		    }
-		  });
-		});
-
-		// Submit the form with the token ID.
-		function stripeTokenHandler(token) {
-		  // Insert the token ID into the form so it gets submitted to the server
-		  var form = document.getElementById('payment-form');
-		  var hiddenInput = document.createElement('input');
-		  hiddenInput.setAttribute('type', 'hidden');
-		  hiddenInput.setAttribute('name', 'stripeToken');
-		  hiddenInput.setAttribute('value', token.id);
-		  form.appendChild(hiddenInput);
-
-		  // Submit the form
-		  form.submit();
-		}
-
-</script>
-<!--    <script>
-		var total = '{{order.get_cart_total}}'
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
-
-        	style: {
-                color:  'blue',
-                shape:  'rect',
-            },
-
-            // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value:parseFloat(total).toFixed(2)
-                        }
-                    }]
-                });
-            },
-
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to the buyer
-                    submitFormData()
-                });
-            }
-
-        }).render('#paypal-button-container');
-    </script>
-
-	<script type="text/javascript">
-		var shipping = '{{order.shipping}}'
-
-		if (shipping == 'False'){
-		 	document.getElementById('shipping-info').innerHTML = ''
-		}
-
-		if (user != 'AnonymousUser'){
-		 	document.getElementById('user-info').innerHTML = ''
-		 }
-
-		if (shipping == 'False' && user != 'AnonymousUser'){
-			//Hide entire form if user is logged in and shipping is false
-				document.getElementById('form-wrapper').classList.add("hidden");
-				//Show payment if logged in user wants to buy an item that does not require shipping
-			    document.getElementById('payment-info').classList.remove("hidden");
-		}
-
-		var form = document.getElementById('form')
-		form.addEventListener('submit', function(e){
-	    	e.preventDefault()
-	    	console.log('Form Submitted...')
-	    	document.getElementById('form-button').classList.add("hidden");
-	    	document.getElementById('payment-info').classList.remove("hidden");
-	    })
-
-		/*
-	    document.getElementById('make-payment').addEventListener('click', function(e){
-	    	submitFormData()
-	    })
-	    */
-
-	    function submitFormData(){
-	    	console.log('Payment button clicked')
-
-	    	var userFormData = {
-				'name':null,
-				'surname':null,
-				'mobile_phone':null,
-				'email':null,
-				'total':total,
-			}
-
-			var shippingInfo = {
-				'country':null,
-				'address':null,
-				'city':null,
-				'region':null,
-				'postcode':null,
-			}
-
-			if (shipping != 'False'){
-				shippingInfo.country = form.country.value
-	    		shippingInfo.address = form.address.value
-		    	shippingInfo.city = form.city.value
-		    	shippingInfo.region = form.region.value
-		    	shippingInfo.postcode = form.postcode.value
-	    	}
-
-	    	if (user == 'AnonymousUser'){
-	    		userFormData.name = form.name.value
-                userFormData.surname = form.surname.value
-                userFormData.mobile_phone = form.mobile_phone.value
-	    		userFormData.email = form.email.value
-	    	}
-
-	    	console.log('Shipping Info:', shippingInfo)
-	    	console.log('User Info:', userFormData)
-
-	    	var url = "/process_order/"
-	    	fetch(url, {
-	    		method:'POST',
-	    		headers:{
-	    			'Content-Type':'applicaiton/json',
-	    			'X-CSRFToken':csrftoken,
-	    		},
-	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
-
-	    	})
-	    	.then((response) => response.json())
-	    	.then((data) => {
-				console.log('Success:', data);
-				alert('Transaction completed');
-
-				cart = {}
-				document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
-
-				window.location.href = "/"
-
-				})
-	    }-->
-	</script>
 </body>

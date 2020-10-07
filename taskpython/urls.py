@@ -38,6 +38,8 @@ urlpatterns = [
     path('process_order/', views.processOrder, name="process_order"),
     path('charge/', views.charge, name="charge"),
     path('success/<str:args>/', views.successMsg, name="success"),
+    path('config/', views.stripe_config),
+    path('create-checkout-session/', views.create_checkout_session),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

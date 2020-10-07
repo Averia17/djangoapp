@@ -24,6 +24,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '4n0m7hp9p3+!=5#2-&_u2j^a##d%nt@59aky0bm*yyqm$-rh1u'
 
 STRIPE_SECRET_KEY = 'sk_test_51HVwjWEBfSr4p5f1fs1DRZVgQGCueSmxCj7cGb0W9B22zfqRRFxEVFjl4Wxte32x4mT9SgzVpw1bvUF7FX4TPbNa00Jr5o0y1i'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51HVwjWEBfSr4p5f11Stvn66ggMpD12YTg5AZ8MbbbPMwoujrnEBfm7UztyC6lVqqp5aX1aA8JgCBhgI4uy5yPhvU00LlSfplsV'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

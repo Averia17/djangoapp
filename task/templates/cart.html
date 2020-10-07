@@ -10,7 +10,7 @@ Cart Page
 <div id="cart">
     <main class="cart-main">
         <div class="cart-wrapper">
-            <div class="header-text"><h1 class="">In my tote</h1></div>
+            <div class="header-text"><h1 class="cart-header-text">In my tote</h1></div>
             <div class="main-info">
                 <div class="cart-info">
                     <ul class="cart-headers">
@@ -22,18 +22,17 @@ Cart Page
                     <ul class="item-list">
                         {% for item in items %}
                         <li class="li-item">
-                            <section data-test="bag-item-381017398" class="product">
+                            <section class="product">
                                 <div class="product-text-wrapper">
                                     <div class="img"><a class="" href="/item_detail/{{item.product.id}}/">
-                                        <picture class="css-wwiaj0"><img
+                                        <picture ><img
                                                 src="{{item.product.imageURL}}"
                                                 sizes="400px" loading="lazy" alt="OC BLACK JEANS" class="css-ee6eyo">
                                         </picture>
                                     </a></div>
-                                    <div class="product-info"><h2 class="css-1sst92i">Opening Ceremony</h2><a
-                                            title="{{item.product.name}}" class="css-fek9om"
-                                            href="/item_detail/{{item.product.id}}/"><h4 class="css-1pkpaip">{{item.product.name}}</h4></a>
-                                        <p class="css-1dh0znf"></p>
+                                    <div class="product-info"><h2>Opening Ceremony</h2><a
+                                            title="{{item.product.name}}"
+                                            href="/item_detail/{{item.product.id}}/"><h4 >{{item.product.name}}</h4></a>
                                     </div>
                                     <div class="product-size">
                                         <!--<div data-test="select-wrapper" class="select-wrapper">
@@ -60,7 +59,7 @@ Cart Page
                                         <p class="text">{{item.quantity}}</p>
                                     </div>
                                     <div class="product-price">
-                                        <div class="css-h1hg7x"><span class="css-b4jmd8">${{item.get_total}}</span></div>
+                                        <div ><span >${{item.get_total}}</span></div>
                                     </div>
                                     <div class="product-remove">
                                         <button data-size="{{item.size}}" data-product="{{item.product.id}}" data-action="add" class="btn-remove update-cart"><span class="remove-span">Add</span>
@@ -83,7 +82,7 @@ Cart Page
                     </ul>
                 </div>
                 <div>
-                    <a id="continue-shopping-widget" class="css-aqrg05" href="/">Continue Shopping</a></div>
+                    <a id="continue-shopping-widget" href="/">Continue Shopping</a></div>
                 </div>
         </div>
     </main>
@@ -107,9 +106,17 @@ Cart Page
                 </div>
             </div>
             <div class="proceed_to_checkout-wrapper">
-                <a href="/checkout/" class="proceed_to_checkout"><span class="text">Proceed to checkout</span></a>
+                <a href="/checkout/" class="proceed_to_checkout"><span class="proceed_to_checkout_text">Proceed to checkout</span></a>
             </div>
         </div>
     </div>
 </div>
+<script>
+    if(document.getElementById('cartItems').innerHTML == 0) {
+        document.getElementsByClassName('proceed_to_checkout_text')[0].innerHTML = "Back to shop";
+        document.getElementsByClassName('proceed_to_checkout')[0].href = "/";
+        document.getElementsByClassName('cart-header-text')[0].innerHTML = "CART IS EMPTY";
+}
+
+</script>
 {% endblock %}

@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import JsonResponse
 import json
 import datetime
-
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 
 from .models import *
@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm, CreateAddressForm
 from .models import Product, Customer
 from .utils import cookieCart, cartData, guestOrder
 
@@ -25,8 +25,8 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def home(request):
     data = cartData(request)
-
     cartItems = data['cartItems']
+
     order = data['order']
     items = data['items']
 
@@ -119,6 +119,15 @@ def signup(request):
     return render(request, 'signup.html', context)
 
 
+def AddAddress(request):
+    form = CreateAddressForm()
+    if request.method == 'POST':
+        form = CreateAddressForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('')
+
+
 def loginPage(request):
     data = cartData(request)
     cartItems = data['cartItems']
@@ -164,6 +173,9 @@ def checkout(request):
     user = request.user
     print(user)
     context = {'items': items, 'order': order, 'cartItems': cartItems, 'user': user}
+    if cartItems == 0:
+        return redirect('/')
+
     return render(request, 'checkout.html', context)
 
 
@@ -221,21 +233,21 @@ def processOrder(request):
 
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
-    print("SUCCESS")
+    print(order.transaction_id)
     print("SUCCESS")
 
     if total == order.get_cart_total:
         order.complete = True
     order.save()
 
-    if order.shipping == True:
+    if order.shipping:
         ShippingAddress.objects.create(
             customer=customer,
             order=order,
-            name=data['shipping']['name'],
-            surname=data['shipping']['surname'],
-            mobile_phone=data['shipping']['mobile_phone'],
-            country=data['shipping']['county'],
+            name=data['form']['name'],
+            surname=data['form']['surname'],
+            mobile_phone=data['form']['mobile_phone'],
+            country=data['shipping']['country'],
             address=data['shipping']['address'],
             city=data['shipping']['city'],
             region=data['shipping']['region'],
@@ -243,3 +255,44 @@ def processOrder(request):
         )
 
     return JsonResponse('Payment submitted..', safe=False)
+
+
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+
+
+@csrf_exempt
+def create_checkout_session(request):
+    if request.method == 'GET':
+        domain_url = 'http://127.0.0.1:8000/'
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+            # Create new Checkout Session for the order
+            # Other optional params include:
+            # [billing_address_collection] - to display billing address details on the page
+            # [customer] - if you have an existing Stripe Customer ID
+            # [payment_intent_data] - capture the payment later
+            # [customer_email] - prefill the email input in the form
+            # For full details see https://stripe.com/docs/api/checkout/sessions/create
+
+            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+            checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + 'cancelled/',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=[
+                    {
+                        'name': 'T-shirt',
+                        'quantity': 1,
+                        'currency': 'usd',
+                        'amount': '2000',
+                    }
+                ]
+            )
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
