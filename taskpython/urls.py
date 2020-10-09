@@ -36,8 +36,9 @@ urlpatterns = [
     path('update_item/', views.updateItem),
     path('add_address/', views.addAddress),
     path('process_order/', views.processOrder, name="process_order"),
-    path('charge/', views.charge, name="charge"),
-    path('success/<str:args>/', views.successMsg, name="success"),
+    path('success/', views.SuccessView),
+    path('cancelled/', views.CancelledView),
+    path('webhook/', views.stripe_webhook),
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
 ]
