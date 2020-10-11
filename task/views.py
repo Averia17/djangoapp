@@ -179,8 +179,11 @@ def checkout(request):
     return render(request, 'checkout.html', context)
 
 
-def SuccessView(request):
-    return render(request, 'success.html')
+
+
+def SuccessView(request, args):
+    amount = args
+    return render(request, 'success.html', {'amount': amount})
 
 
 def CancelledView(request):
@@ -214,6 +217,29 @@ def updateItem(request):
 
 def addAddress(request):
     return "add"
+
+
+def charge(request):
+    data = cartData(request)
+    order = data['order']
+    total = order.get_cart_total
+    print(total)
+
+    if request.method == 'POST':
+        print('Data:', request.POST)
+
+        customer = stripe.Customer.create(
+            email=request.POST['email'],
+            name=request.POST['name'],
+            source=request.POST['stripeToken']
+        )
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount=total * 100,
+            currency='usd',
+            description="Donation"
+        )
+    return redirect(reverse('success', args=[total]))
 
 
 def processOrder(request):
