@@ -137,6 +137,7 @@
 
                                 </div>
                                 <div class="box-element hidden" id="payment-info">
+                                    <div>ТЕСТОВЫЙ МОД(ВВЕДИТЕ КАРТУ 4242 4242 4242 4242 и рандомные данные)</div>
                                 <button type="submit" id="card-button" class="btn btn-primary btn-block">Checkout</button>
                             </div>
                         </div>
@@ -186,7 +187,6 @@
     </main>
 </div>
 <script src="https://js.stripe.com/v3/"></script>
-<script src="{% static 'js/main.js' %}"></script>
 <script>
     var stripe = Stripe('pk_test_51HYeIdBVlilQV0AiDYAI6r5u5aT9y7HWlA2xN17U57cGFNAdaM3EIAcqmjQmTQRqbskcmEXoRodXGBvhwsbBZr9u00y9Ob1szG');
 
@@ -336,27 +336,7 @@ document.getElementById('form-button').onclick = function submitFormData(){
 	document.getElementById("laststep").style.display = "block";
 
 }
-document.getElementById('-button').onclick = function Checkout() {
-    console.log('Shipping Info:', shippingInfo)
-    console.log('User Info:', userFormData)
-    var url = "/process_order/"
-    fetch(url, {
-        method:'POST',
-        headers:{
-            'Content-Type':'applicaiton/json',
-            'X-CSRFToken':'{{ csrf_token }}',
-        },
-        body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
 
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log('Success:', data);
-
-
-
-        })
-    }
 </script>
 
 </body>

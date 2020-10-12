@@ -39,9 +39,6 @@ urlpatterns = [
     path('process_order/', views.processOrder, name="process_order"),
     path('success/<str:args>/', views.SuccessView, name="success"),
     path('cancelled/', views.CancelledView),
-    path('webhook/', views.stripe_webhook),
-    path('config/', views.stripe_config),
-    path('create-checkout-session/', views.create_checkout_session),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -28,7 +28,7 @@ STRIPE_PUBLISHABLE_KEY = 'pk_test_51HYeIdBVlilQV0AiDYAI6r5u5aT9y7HWlA2xN17U57cGF
 
 STRIPE_ENDPOINT_SECRET = 'whsec_WaR8DRnyCLdVBRGATKLha6BvSEuvKB7c'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'averia-programm.herokuapp.com']
 
@@ -128,8 +128,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'feterfox@gmail.com'
-EMAIL_HOST_PASSWORD = 'qayjirgnlgcisyum'
+EMAIL_HOST_USER = 'averiasendmail@gmail.com'
+EMAIL_HOST_PASSWORD = 'gbyhcdpshjfguvpp'
 
 
 STATIC_URL = '/static/'
