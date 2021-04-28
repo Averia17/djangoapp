@@ -135,7 +135,7 @@ EMAIL_HOST_PASSWORD = 'gbyhcdpshjfguvpp'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/img/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
 
 if os.getcwd() == '/app':
