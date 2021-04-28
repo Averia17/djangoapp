@@ -30,7 +30,7 @@ STRIPE_ENDPOINT_SECRET = 'whsec_WaR8DRnyCLdVBRGATKLha6BvSEuvKB7c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://averia-programm.herokuapp.com/']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'averia-programm.herokuapp.com']
 
 
 # Application definition
