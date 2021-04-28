@@ -28,7 +28,7 @@ STRIPE_PUBLISHABLE_KEY = 'pk_test_51HYeIdBVlilQV0AiDYAI6r5u5aT9y7HWlA2xN17U57cGF
 
 STRIPE_ENDPOINT_SECRET = 'whsec_WaR8DRnyCLdVBRGATKLha6BvSEuvKB7c'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'averia-programm.herokuapp.com']
 
@@ -135,7 +135,7 @@ EMAIL_HOST_PASSWORD = 'gbyhcdpshjfguvpp'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/img/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
 
 if os.getcwd() == '/app':
