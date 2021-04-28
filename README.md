@@ -1,3 +1,5 @@
-# djangoapp
+# eCommerce web app
 
-# my web-app
+# Django + JS + Sqlite
+
+# https://averia-programm.herokuapp.com/

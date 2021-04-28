@@ -109,15 +109,21 @@ def signup(request):
     data = cartData(request)
     cartItems = data['cartItems']
 
-    form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Account was created for ' + user)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+
+            user = authenticate(request, username=username, password=password)
+
+            Customer.objects.create(user=user, name=user.username, email=user.email)
+            messages.success(request, 'Account was created for ' + username)
 
             return redirect('/login')
+    else:
+        form = CreateUserForm()
 
     context = {'form': form, 'cartItems': cartItems}
     return render(request, 'signup.html', context)
